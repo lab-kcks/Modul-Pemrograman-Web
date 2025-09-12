@@ -6,6 +6,6 @@
 
 - [Modul 3 - ExpressJS & MongoDB](./modul-3/)
 
-- [Modul 4 - Vue JS](./modul-4/)
+- [Modul 4 - React JS](./modul-4/)
 
-- [Modul 5 - NuxtJS](./modul-5/)
+- [Modul 5 - Vibe Coding](./modul-5/)
