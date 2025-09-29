@@ -512,3 +512,191 @@ Pada level ini, klean akan diberikan topik-topik lanjutan dan praktik JavaScript
 - **Gunakan `let` dan `const` daripada `var`** untuk mendeklarasikan variabel
 - **Tulis kode yang bersih dan terorganisir** dengan mengikuti prinsip KISS
 - **Gunakan linting tools** seperti ESLint untuk menjaga konsistensi kode
+
+## 5. Typescript & NodeJS
+<img width="256" height="256" alt="Typescript" src="https://github.com/user-attachments/assets/8d1951b2-6a05-4bf4-b13d-00ffd65611fc" /> 
+<img width="256" height="256" alt="NodeJS" src="https://github.com/user-attachments/assets/e188cfbf-bd7f-4fed-90ae-2947425cf04b" />
+
+### 5.1 Apa itu TypeScript🤔???
+
+TypeScript adalah sebuah **bahasa pemrograman yang dikembangkan di atas JavaScript**. Dibandingkan dengan JavaScript, TypeScript menyediakan fitur tambahan yang mempermudah pengembangan aplikasi berskala besar.
+
+TypeScript adalah superset dari JavaScript, yang berarti **semua kode JavaScript yang valid juga valid di TypeScript**. Namun, TypeScript menambahkan syntax tambahan seperti tipe data (**type**) dan antarmuka (**interface**) untuk memberikan lebih banyak struktur pada kode.
+
+Proses Transpilasi kode yang ditulis dalam TypeScript tidak dijalankan langsung di browser atau Node.js. Kode ini perlu dikonversi menjadi JavaScript terlebih dahulu melalui proses yang disebut transpiling. Setelah dikonversi, hasilnya adalah kode JavaScript biasa yang dapat dijalankan di:
+
+- **Browser**: Untuk membuat aplikasi web.
+
+- **Node.js atau Deno**: Untuk membuat aplikasi server atau utilitas lain berbasis JavaScript.
+
+### 5.2 Mengapa Typescript😣???
+
+- **Integrasi IDE**
+
+  TypeScript dirancang untuk bekerja lebih baik dengan Code Editor seperti VS Code, sehingga memudahkan dalam penulisan dan perbaikan kode.
+
+- **Error Checking**
+
+  Salah satu keuntungan utama TypeScript adalah kemampuannya untuk menangkap kesalahan langsung saat penulisan kode, sehingga bug dapat diperbaiki sebelum program dijalankan.
+
+- **Scalable**
+
+  TypeScript sangat berguna dalam proyek berskala besar karena adanya tipe data yang lebih jelas, sehingga memudahkan pengembang dalam memahami dan menjaga kualitas kode.
+
+#### Javascript😁 vs Typescript😎
+
+| **Fitur**             | **TypeScript**                                                                  | **JavaScript**                                        |
+| --------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| **Tipe Data**         | Menyediakan tipe statis                                                         | Bertipe dinamis                                       |
+| **Perkakas**          | Dilengkapi dengan IDE dan editor kode                                           | Tools bawaan terbatas                                 |
+| **Sintaks**           | Mirip dengan JavaScript, dengan fitur tambahan                                  | Syntax Standar JavaScript standar                     |
+| **Kompatibilitas**    | Kompatibel dengan JavaScript                                                    | Tidak dapat menjalankan TypeScript di file JavaScript |
+| **Debugging**         | Penulisan kode yang lebih kuat/strict dapat membantu mengidentifikasi kesalahan | Memerlukan lebih banyak debugging dan pengujian       |
+| **Tingkat Kesulitan** | Membutuhkan waktu untuk mempelajari fitur tambahan                              | Sintaks JavaScript standar lebih familier             |
+| **Tipe Bahasa**       | Object-oriented                                                                 | Prototype-based language                              |
+
+### 5.3 **Cara Menginstal `NodeJS`**
+
+- Download _prebuilt-installer_ NodeJS (gunakan versi yang memiliki label `LTS`) pada [link berikut](https://nodejs.org/en/download). Nantinya akan muncul tampilan seperti di bawah ini
+<img width="1094" height="846" alt="image" src="https://github.com/user-attachments/assets/a2f91bca-2cda-4f67-a85a-dd41e4af6e3f" />
+
+- Install nodeJS melalui _prebuilt-installer_ yang sudah kalian unduh.
+
+- Package Manager `NPM` juga akan terinstal.
+
+- untuk memeriksa apakah `NodeJS` dan `NPM` telah terpasang, gunakan command berikut pada terminal:
+
+  - Cek versi `NodeJS`
+
+  ```bash
+  node -v
+  ```
+
+  - Cek versi `NPM`
+
+  ```bash
+  npm -v
+  ```
+
+<img width="339" height="101" alt="image" src="https://github.com/user-attachments/assets/0c1ec5ff-cb61-4f2c-bf2f-c9dce0977cb2" />
+
+#### **Cara Menginstal `Yarn` (Opsional)**
+
+Menginstal Package Manager `Yarn` dapat dilakukan dengan menggunakan perintah dari `NPM`.
+
+- Jalankan command berikut pada terminal:
+
+  ```bash
+  npm install -g yarn
+  ```
+
+  > Catatan: flag `-g` perlu digunakan agar yarn dapat digunakan di lokasi manapun pada komputer kalian.
+
+- Periksa versi yarn menggunakan perintah berikut:
+
+  ```bash
+  yarn -v
+  ```
+
+#### **Cara Menginstal `PNPM` (Opsional)**
+
+Menginstal Package Manager `PNPM` dapat dilakukan dengan menggunakan perintah dari `NPM`.
+
+- Jalankan command berikut pada terminal:
+
+  ```bash
+  npm install -g pnpm
+  ```
+
+  > Catatan: flag `-g` perlu digunakan agar pnpm dapat digunakan di lokasi manapun pada komputer kalian.
+
+- Periksa versi pnpm menggunakan perintah berikut:
+
+  ```bash
+  pnpm -v
+  ```
+
+### 5.4 **Memulai Proyek 'TypeScript' Pertama🚀**
+#### - Install TypeScript secara Global:
+Setelah Node.js terpasang, kita bisa install TypeScript menggunakan npm (Node Package Manager). Buka terminal dan jalankan:
+
+```bash
+npm install -g typescript
+```
+Perintah -g artinya kita menginstallnya secara global, jadi bisa dipakai di proyek mana pun.
+
+#### 1. Buat Folder Proyek
+Pertama, buat sebuah direktori (folder) baru untuk proyekmu dan masuk ke dalamnya.
+
+```bash
+mkdir proyek-typescript-pertama
+cd proyek-typescript-pertama
+```
+
+#### 2. Inisiasi Proyek Node.js
+Setiap proyek JavaScript/TypeScript dimulai dengan file package.json. File ini berisi metadata proyek dan daftar dependensi.
+
+```bash
+npm init -y
+```
+<img width="607" height="302" alt="image" src="https://github.com/user-attachments/assets/f932d3f8-eacb-48e5-95f6-db81e067c6bf" />
+
+Perintah ini akan membuat file package.json dengan konfigurasi default.
+
+#### 3. Instal TypeScript
+Selanjutnya, instal TypeScript sebagai development dependency. Ini berarti TypeScript hanya dibutuhkan selama proses pengembangan, bukan saat aplikasi dijalankan di produksi.
+
+```bash
+npm install typescript --save-dev
+```
+
+#### 4. Buat File Konfigurasi TypeScript
+TypeScript menggunakan file tsconfig.json untuk mengelola opsi kompilasi proyek.
+
+```bash
+npx tsc --init
+```
+Perintah ini akan membuat file tsconfig.json dengan banyak opsi yang sudah diberi komentar penjelasan. Untuk saat ini, kita bisa menggunakan konfigurasi default.
+
+<img width="341" height="150" alt="image" src="https://github.com/user-attachments/assets/1e444959-79e4-4e3c-9352-16a2e78e1688" />
+
+#### 5. Buat Folder src dan Tulis Kode
+Merupakan praktik umum untuk menempatkan semua kode sumber kita di dalam folder src.
+- Buat folder src:
+
+```bash
+mkdir src
+```
+
+- Buat file baru di dalam src bernama index.ts.
+Buka src/index.ts dan tulis kode sederhana berikut:
+
+```TypeScript
+function sapa(nama: string): string {
+  return `Halo, ${nama}! Selamat datang di dunia TypeScript.`;
+}
+
+let pengguna: string = "Programmer";
+
+console.log(sapa(pengguna));
+```
+
+#### 6. Kompilasi Kode TypeScript
+Kode TypeScript (.ts) tidak bisa langsung dijalankan oleh Node.js atau browser. Kita harus mengompilasinya menjadi JavaScript (.js) terlebih dahulu.
+
+```bash
+npx tsc
+```
+Perintah ini akan membaca tsconfig.json, mencari semua file .ts (dalam hal ini src/index.ts), dan mengompilasinya menjadi JavaScript. Secara default, hasilnya akan disimpan di folder dist. Kamu sekarang akan melihat folder baru dist berisi file index.js.
+
+#### 7. Jalankan Kode JavaScript Hasil Kompilasi
+Terakhir, jalankan file JavaScript yang sudah jadi menggunakan Node.js.
+
+```bash
+node src/index.js
+```
+
+Kamu akan melihat output di terminal:
+```bash
+Halo, Programmer! Selamat datang di dunia TypeScript.
+```
