@@ -583,103 +583,52 @@ Proses Transpilasi kode yang ditulis dalam TypeScript tidak dijalankan langsung 
 
 ### 5.4 **Memulai Proyek 'TypeScript' Pertama🚀**
 
-#### - Install TypeScript secara Global:
-
-Setelah Node.js terpasang, kita bisa install TypeScript menggunakan npm (Node Package Manager). Buka terminal dan jalankan:
-
-```bash
-npm install -g typescript
-```
-
-Perintah -g artinya kita menginstallnya secara global, jadi bisa dipakai di proyek mana pun.
-
-#### 1. Buat Folder Proyek
-
-Pertama, buat sebuah direktori (folder) baru untuk proyekmu dan masuk ke dalamnya.
+#### - Persiapan Proyek
+Pertama, siapkan folder proyek dan install TypeScript sebagai dependency pengembangan. Buka terminal dan jalankan perintah berikut satu per satu:
 
 ```bash
-mkdir proyek-typescript-pertama
-cd proyek-typescript-pertama
-```
+# Membuat dan masuk ke folder proyek
+mkdir proyek-ts
+cd proyek-ts
 
-#### 2. Inisiasi Proyek Node.js
-
-Setiap proyek JavaScript/TypeScript dimulai dengan file package.json. File ini berisi metadata proyek dan daftar dependensi.
-
-```bash
+# Membuat file package.json secara otomatis
 npm init -y
-```
 
-<img width="607" height="302" alt="image" src="https://github.com/user-attachments/assets/f932d3f8-eacb-48e5-95f6-db81e067c6bf" />
-
-Perintah ini akan membuat file package.json dengan konfigurasi default.
-
-#### 3. Instal TypeScript
-
-Selanjutnya, instal TypeScript sebagai development dependency. Ini berarti TypeScript hanya dibutuhkan selama proses pengembangan, bukan saat aplikasi dijalankan di produksi.
-
-```bash
+# Menginstal TypeScript untuk proyek ini
 npm install typescript --save-dev
 ```
-
-#### 4. Buat File Konfigurasi TypeScript
-
-TypeScript menggunakan file tsconfig.json untuk mengelola opsi kompilasi proyek.
-
-```bash
-npx tsc --init
+#### - Menulis Kode
+Selanjutnya, kita akan menulis kode TypeScript. 
+- Buat folder baru bernama src.
+- Di dalam src, buat file baru bernama index.ts.
+- Isi file src/index.ts dengan kode berikut:
 ```
-
-Perintah ini akan membuat file tsconfig.json dengan banyak opsi yang sudah diberi komentar penjelasan. Untuk saat ini, kita bisa menggunakan konfigurasi default.
-
-<img width="341" height="150" alt="image" src="https://github.com/user-attachments/assets/1e444959-79e4-4e3c-9352-16a2e78e1688" />
-
-#### 5. Buat Folder src dan Tulis Kode
-
-Merupakan praktik umum untuk menempatkan semua kode sumber kita di dalam folder src.
-
-- Buat folder src:
-
-```bash
-mkdir src
-```
-
-- Buat file baru di dalam src bernama index.ts.
-  Buka src/index.ts dan tulis kode sederhana berikut:
-
-```TypeScript
-function sapa(nama: string): string {
-  return `Halo, ${nama}! Selamat datang di dunia TypeScript.`;
+function sapa(nama: string) {
+  console.log(`Halo, ${nama}!`);
 }
 
-let pengguna: string = "Programmer";
-
-console.log(sapa(pengguna));
+sapa("Praktikan");
 ```
-
-#### 6. Kompilasi Kode TypeScript
-
-Kode TypeScript (.ts) tidak bisa langsung dijalankan oleh Node.js atau browser. Kita harus mengompilasinya menjadi JavaScript (.js) terlebih dahulu.
-
+### - Kompilasi & Eksekusi
+Terakhir, kita ubah kode TypeScript (.ts) menjadi JavaScript (.js) lalu jalankan.
+- Jalankan perintah ini di terminal untuk mengompilasi file src/index.ts.
 ```bash
-npx tsc
+npx tsc src/index.ts
 ```
+Perintah ini akan membuat file baru bernama index.js di dalam folder src.
 
-Perintah ini akan membaca tsconfig.json, mencari semua file .ts (dalam hal ini src/index.ts), dan mengompilasinya menjadi JavaScript. Secara default, hasilnya akan disimpan di folder dist. Kamu sekarang akan melihat folder baru dist berisi file index.js.
-
-#### 7. Jalankan Kode JavaScript Hasil Kompilasi
-
-Terakhir, jalankan file JavaScript yang sudah jadi menggunakan Node.js.
-
+- Jalankan Program
+Eksekusi file JavaScript hasil kompilasi untuk melihat outputnya.
 ```bash
 node src/index.js
 ```
-
-Kamu akan melihat output di terminal:
-
-```bash
-Halo, Programmer! Selamat datang di dunia TypeScript.
+Output yang Diharapkan:
 ```
+Halo, Praktikan!
+```
+
+Selamat! Anda telah berhasil menjalankan program TypeScript pertama Anda.
+
 
 ### 5.7 **Contoh Website Sederhana dengan TypeScript**
 
