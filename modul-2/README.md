@@ -581,42 +581,6 @@ Proses Transpilasi kode yang ditulis dalam TypeScript tidak dijalankan langsung 
 
 <img width="339" height="101" alt="image" src="https://github.com/user-attachments/assets/0c1ec5ff-cb61-4f2c-bf2f-c9dce0977cb2" />
 
-#### **Cara Menginstal `Yarn` (Opsional)**
-
-Menginstal Package Manager `Yarn` dapat dilakukan dengan menggunakan perintah dari `NPM`.
-
-- Jalankan command berikut pada terminal:
-
-  ```bash
-  npm install -g yarn
-  ```
-
-  > Catatan: flag `-g` perlu digunakan agar yarn dapat digunakan di lokasi manapun pada komputer kalian.
-
-- Periksa versi yarn menggunakan perintah berikut:
-
-  ```bash
-  yarn -v
-  ```
-
-#### **Cara Menginstal `PNPM` (Opsional)**
-
-Menginstal Package Manager `PNPM` dapat dilakukan dengan menggunakan perintah dari `NPM`.
-
-- Jalankan command berikut pada terminal:
-
-  ```bash
-  npm install -g pnpm
-  ```
-
-  > Catatan: flag `-g` perlu digunakan agar pnpm dapat digunakan di lokasi manapun pada komputer kalian.
-
-- Periksa versi pnpm menggunakan perintah berikut:
-
-  ```bash
-  pnpm -v
-  ```
-
 ### 5.4 **Memulai Proyek 'TypeScript' Pertama🚀**
 
 #### - Install TypeScript secara Global:
