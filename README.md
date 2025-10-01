@@ -2,7 +2,7 @@
 
 - [Modul 1 - HTML & CSS](./modul-1/)
 
-- [Modul 2 - JavaScript](./modul-2/)
+- [Modul 2 - JavaScript & TypeScript](./modul-2/)
 
 - [Modul 3 - ExpressJS & MongoDB](./modul-3/)
 

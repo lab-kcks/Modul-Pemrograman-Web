@@ -1,9 +1,9 @@
-# Modul 2 - Java Script
+# Modul 2 - Java Script & TypeScript
 
 ## 1. JavaScript Basics
 
 JavaScript adalah bahasa pemrograman yang digunakan untuk menambahkan interaksi dan logika ke halaman web.
-Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
+Dalam modul ini, kalian akan mempelajari dasar-dasar JavaScript.
 
 ### 1.1. Menambahkan JavaScript ke HTML
 
@@ -37,6 +37,23 @@ Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
   let name = "Alice"; // variabel yang dapat diubah
   const age = 25; // variabel konstan
   ```
+
+**Permaslaahan Dengan `Var`**
+
+variabel yang dideklarasikan menggunakan `var` akan memiliki scope yang disebut sebagai _function scope_. Dalam javascript, hal ini berarti variabel tersbeut masih bisa diakses di luar blok (`for`, `if`) yang menyebabkan bug lebih susah dilacak.
+
+Contoh:
+```js
+if (true) {
+  var name = "Kelinci";
+}
+console.log(name); // "Kelinci" -> masih bisa diakses
+
+if (true) {
+  let newName = "Alice";
+}
+console.log(newName); // ❌ Error: name is not defined
+```
 
 - **Tipe Data**:
 
@@ -117,7 +134,7 @@ Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
 
 ### 1.6. Menggunakan Local Storage
 
-**Local Storage** adalah penyimpanan di browser yang memungkinkan klean menyimpan data secara permanen di sisi klien (hingga dihapus secara manual oleh pengguna).
+**Local Storage** adalah penyimpanan di browser yang memungkinkan kalian menyimpan data secara permanen di sisi klien (hingga dihapus secara manual oleh pengguna).
 
 #### 1.6.1. Menyimpan Data ke Local Storage
 
@@ -159,6 +176,8 @@ Contoh menghapus data:
 localStorage.removeItem("username");
 ```
 
+> removeItem tidak akan mengembalikan error apabila key yang dimasukkan tidak ditemukan
+
 Untuk menghapus semua data yang tersimpan di local storage, gunakan `localStorage.clear()`:
 
 ```javascript
@@ -167,7 +186,7 @@ localStorage.clear();
 
 ## 2. Intermediate JavaScript
 
-Setelah memahami dasar-dasar, klean akan melanjutkan ke konsep yang lebih kompleks.
+Setelah memahami dasar-dasar javascript, kalian akan melanjutkan ke konsep yang lebih kompleks.
 
 ### 2.1. Arrays
 
@@ -180,7 +199,7 @@ Setelah memahami dasar-dasar, klean akan melanjutkan ke konsep yang lebih komple
 - **Manipulasi Array**:
 
   ```javascript
-  fruits.push(🍇); // Menambah elemen
+  fruits.push(🍇); // Menambah elemen di akhir array
   fruits.pop(); // Menghapus elemen terakhir
   ```
 
@@ -295,7 +314,7 @@ content.innerHTML =
 
 #### 2.3.4. DOM Forms
 
-Untuk mengakses dan memanipulasi elemen form seperti `input`, `textarea`, dll., klean bisa menggunakan properti `value`.
+Untuk mengakses dan memanipulasi elemen form seperti `input`, `textarea`, dll., kalian bisa menggunakan properti `value`.
 
 Contoh menangani form:
 
@@ -310,7 +329,7 @@ form.addEventListener("submit", (event) => {
 
 #### 2.3.5. DOM CSS
 
-Untuk mengubah gaya elemen, klean bisa menggunakan properti `style`.
+Untuk mengubah gaya elemen, kalian bisa menggunakan properti `style`.
 
 Contoh:
 
@@ -357,7 +376,7 @@ button.addEventListener("click", () => {
 
 #### 2.3.9. DOM Nodes
 
-Semua elemen di DOM adalah node, dan klean bisa memanipulasinya dengan metode seperti `appendChild`, `removeChild`, atau `replaceChild`.
+Semua elemen di DOM adalah node, dan kalian bisa memanipulasinya dengan metode seperti `appendChild`, `removeChild`, atau `replaceChild`.
 
 Contoh menghapus elemen:
 
@@ -391,7 +410,7 @@ for (let i = 0; i < divs.length; i++) {
 
 ## 3. Advanced JavaScript
 
-Di bagian ini, klean akan mempelajari fitur dan konsep lanjutan dalam JavaScript.
+Di bagian ini, kalian akan mempelajari fitur dan konsep lanjutan dalam JavaScript.
 
 ### 3.1. Asynchronous JavaScript
 
@@ -474,7 +493,7 @@ Fungsi `fetchData` menerima fungsi callback (`handleData`) sebagai argumen, yang
 
 ## 4. Expert JavaScript
 
-Pada level ini, klean akan diberikan topik-topik lanjutan dan praktik JavaScript.
+Pada level ini, kalian akan diberikan topik-topik lanjutan dan praktik JavaScript.
 
 ### 4.1. Functional Programming
 
@@ -490,9 +509,9 @@ Pada level ini, klean akan diberikan topik-topik lanjutan dan praktik JavaScript
 
   ```javascript
   const numbers = [1, 2, 3, 4, 5];
-  const doubled = numbers.map((num) => num * 2);
-  const evenNumbers = numbers.filter((num) => num % 2 === 0);
-  const sum = numbers.reduce((acc, num) => acc + num, 0);
+  const doubled = numbers.map((num) => num * 2);                // [2, 4, 6, 8, 10]
+  const evenNumbers = numbers.filter((num) => num % 2 === 0);   // [2, 4]
+  const sum = numbers.reduce((acc, num) => acc + num, 0);       // 1 + 2 + 3 + 4 + 5 = 15
   ```
 
 ### 4.2. Event Delegation
@@ -637,3 +656,193 @@ Kalian bisa lihat contoh project sederhana menggunakan TypeScript pada website b
 Sebagai referensi, kalian bisa lihat source codenya pada repository berikut: [TypeScript Calculator Repository](https://github.com/harvdt/ts-js-website/tree/main/ts)
 
 Di situ kalian juga bisa melihat perbedaan penggunaan type safety pada TypeScript dibandingkan dengan JavaScript biasa. Berikut adalah website JavaScript: [JavaScript Calculator Website](https://ts-js-website.netlify.app/js/)
+
+### 5.8 **Best Practice TypeScript**
+
+Pengaplikasian TypeScript sangat membantu dalam pengerjaan proyek, terutama yang berskala besar. Namun apabila diterapkan dengan ala kadarnya, dapat membuat setiap orang yang bekerja dalam proyek tersebut kebingungan.
+
+![ts-any-meme](./images/ts-any.jpg)
+
+**TypeScript bertujuan untuk mempermudah developer dalam mengembangkan aplikasi JavaScript, bukan memperumit.**
+
+Untuk itu, kalian bisa manfaatkan sedikit contoh best practice di bawah ini agar aplikasi kalian mudah dipahami oleh orang lain.
+
+1. **Definisikan type di file terpisah**
+
+Mencampurkan terlalu banyak `Type` atau `Interface` dalam satu file, terlebih pada file yang sama dengan _function_ dapat membuat file lebih susah dirawat (maintain).
+
+![no-import](./images/no-import.png)
+
+> Butuh 20 baris hanya untuk mendefinisikan interface yang akan digunakan, boros baris :(
+
+Akan lebih baik apabila `Type` dan `Interface` diletakkan pada sebuah folder khusus yang berisi semua definisi tipe.
+
+**Contoh Struktur Folder:**
+
+```conf
+my_ts/
+ ┃
+ ┣ interfaces/            // Folder Interfaces
+ ┃ ┗ animal.interface.ts
+ ┃ ┗ post.interface.ts
+ ┃ ┗ user.interface.ts
+ ┃
+ ┗ tes-bentar.ts          // File Function
+```
+
+![folder-no-index](./images/folder-no-index.png)
+
+Impor semua yang akan digunakan pada masing - masing file .interface
+
+`animal.interface.ts`
+```ts
+export interface Animal {
+  species: string;
+  legs: number;
+  can_fly: boolean;
+  can_swim: boolean;
+}
+```
+
+`post.interface.ts`
+```ts
+export interface Post {
+  creator: string;
+  title: string;
+  description: string;
+  total_click: number;
+}
+```
+
+`user.interface.ts`
+```ts
+export interface User {
+  name: string;
+  age: number;
+  address: string;
+  is_old: boolean;
+}
+```
+
+**Hasil Akhir:**
+
+Pada akhirnya kalian akan mendapat seperti ini pada file function kalian,
+
+![import-1](./images/import-1.png)
+
+**Perbandingan**
+
+![import-comparison](./images/import-comparison.jpg)
+
+2. **Terlalu banyak yang diimpor? Gunakan `index.ts`**
+
+Dari contoh sebelumnya, terlihat bahwa kita masih harus mengimpor setiap file satu persatu. Untuk memudahkan impor, kita bisa menambahkan file `index.ts` pada folder `interfaces`.
+
+![folder-with-index](./images/folder-with-index.png)
+
+`index.ts`
+```ts
+export * from './animal.interface';
+export * from './post.interface';
+export * from './user.interface';
+```
+
+**Hasil Akhir**
+
+![import-2](./images/import-2-crop.png)
+
+3. **Manfaatkan Type Manupulation**
+
+TypeScript menyediakan berbagai utility types yang dapat membantu developer dalam menulis kode yang fleksibel dan tidak repetitif
+
+   1. **Generics**
+   
+   Generics memungkinkan kita membuat Tipe Dinamis untuk digunakan dalam kasus yang bervariasi.
+
+   ```ts
+function identity<T>(value: T): T {
+  return value;
+}
+
+const str = identity<string>("Hello"); // str: string
+const num = identity(123);             // num: number (infer otomatis)
+   ```
+
+   2. **Partial**
+   
+   `Partial<T>` berarti seluruh properti pada tipedata `T` akan diubah menjadi opsional
+
+   ```ts
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+// Apabila terdapat variabel dengan tipedata partial dari User
+
+type KindaUser = Partial<User>;
+
+// Maka tipedatanya sama saja seperti:
+
+interface KindaUser {
+  id?: number;
+  name?: string;
+  email?: string;
+}
+   ```
+
+   Contoh Lain:
+
+   ```ts
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+function updateUser(id: number, data: Partial<User>) {
+  // data bisa hanya berisi sebagian field
+}
+
+updateUser(1, { name: "New Name" }); // Tidak perlu memasukkan id dan email
+   ```
+   
+   3. **Pick**
+   
+   `Pick<T, K>` membuat tipe baru hanya dengan memilih beberapa properti dari tipe asal.
+
+   ```ts
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+}
+
+type UserProfile = Pick<User, "id" | "name" | "email">;
+
+const profile: UserProfile = {
+  id: 1,
+  name: "Jone",
+  email: "jone@doe.com",
+};
+   ```
+   
+   4. **Omit**
+   
+   `Omit<T, K>` adalah kebalikan dari `Pick`, Omit akan membuat tipe baru dengan menghapus properti tertentu.
+
+   ```ts
+type UserWithoutPassword = Omit<User, "password">;
+
+const user: UserWithoutPassword = {
+  id: 1,
+  name: "Alibaba",
+  email: "ali@baba.com",
+};
+   ```
+
+Dokumentasi lengkap terkait dengan _Type Manipulation_ terdapat pada situs resmi TypeScript. [Klik untuk Akses](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html)
+
+Happy Coding!
