@@ -648,6 +648,371 @@ Halo, Praktikan!
 
 Selamat! Anda telah berhasil menjalankan program TypeScript pertama Anda.
 
+### 5.5 **Type Annotation di Typescript**
+
+_Type annotation_ merupakan cara kita untuk memberitahu *Typescript* mengenai tipe data dari sebuah variabel, parameter fungsi, serta nilai yang di *return* oleh sebuah fungsi.
+
+#### Primitive Types (string, number, dan boolean)
+
+Adalah tipe data yang paling dasar dan umum digunakan untuk menyimpan teks, angka, dan nilai *boolean* yaitu *true* atau *false*.
+
+```ts
+// Variabel ini HANYA boleh berisi teks (string)
+let text: string = 'Hello World!'
+
+// Variabel ini HANYA boleh berisi angka (number)
+let num: number = 58.0
+
+// Variabel ini HANYA boleh berisi nilai benar atau salah (boolean)
+let isTrue: boolean = false
+```
+
+#### Arrays
+
+Untuk mendefinisikan sebuah array, kita dapat menyisipkan `[]` setelah nama tipenya. 
+```ts
+// Variabel ini HANYA boleh berisi kumpulan teks (string)
+let colorArray: string[] = ["Red", "Green", "Blue"]
+
+// Variabel ini HANYA boleh berisi kumpulan angka (number)
+let numberArray: number[] = [1, 3, 5, 6, 9]
+
+// Variabel ini HANYA boleh berisi kumpulan boolean
+let booleanArray: boolean[] = [true, false, true, false]
+```
+
+### Any
+
+Dengan menggunakan `any`, nantinya sebuah variabel dapat diisi dengan tipe data apapun dan dapat dioperasikan sesuai preferensi kita.
+
+>⚠️ Gunakan tipe data ini dengan hati-hati, karena penggunannya akan menghilangkan pengecekan tipe data pada variabel yang merupakan fitur utama dari *Typescript*.
+
+```ts
+// 'obj' bisa diisi dan diubah menjadi apa saja tanpa error
+let obj: any = { count: 0 };
+
+obj.foo();
+obj();
+obj.bar = 100;
+obj = "hello";
+```
+
+#### Function
+
+*Type annotation* dalam sebuah _function_ digunakan untuk mendeklarasikan tipe data untuk parameter atau input dari sebuah tersebut serta nilai yang di *return* oleh sebuah fungsi.
+
+#### Parameter Type Annotation
+
+```ts
+// Fungsi ini hanya menerima parameter 'name' yang bertipe string
+function greet(name: string) {
+	console.log(`Hello ${name.toUpperCase()}! How are you?`)
+}
+
+greet("John Doe"); // Benar
+// greet(123); // Akan menjadi error karena 123 bukan string
+```
+
+#### Return Type Annotation
+
+```ts
+// Fungsi ini PASTI akan selalu me-return nilai boolean
+function isNight(): boolean {
+	return true
+}
+```
+
+### Object
+
+Untuk objek, *type annotation* dapat dilakukan dengan mendefinisikan "bentuk" atau struktur objeknya dengan mendefinisikan properti apa saja yang ada di dalamnya beserta tipe datanya.
+
+#### Variable Annotation
+```ts
+// Variabel user dengan properti 'name' (string) dan 'age' (number)
+const user: { name: string, age: number } = {
+	name: "John Doe",
+	age: 25
+}
+```
+
+#### Function Annotation
+
+```ts
+// Fungsi ini hanya menerima objek dengan struktur { lat: number, lng: number }
+function showCoord(coord: { lat: number, lng: number }) {
+	console.log("Latitude: ": coord.lat)
+	console.log("Latitude: ": coord.lng)
+} 
+
+showCoord({ lat: 37.272011, lng: -115.815498 })
+```
+
+**Optional Properties**
+
+Terkadang, sebuah properti dalam objek tidak wajib ada. Untuk itu, kita dapat menandainya sebagai properti yang **opsional** dengan menambahkan `?` (tanda tanya) setelah nama properti.
+
+```ts
+// Properti 'last' tidak wajib diisi karena ada tanda '?'
+function showFullName(user: { first: string, last?: string }) {
+	// Karena 'last' opsional, bisa jadi nilainya undefined
+	console.log(`Full name: ${user.first} ${user.last}`)
+}
+
+showFullName({ first: "John" })
+showFullName({ first: "John", last: "Doe" })
+```
+
+### 5.6 **Fitur Lain di Typescript**
+
+#### Union
+
+Memungkinkan sebuah variabel atau parameter untuk dapat memiliki **lebih dari satu** kemungkinan tipe data. Untuk mendeklarasikan *union type*, kita dapat menggunakan tanda `|` untuk memisahkan tipe data yang digunakan.
+
+```ts
+function showUserId(id: string | number) {
+	console.log("User ID: ", id)
+}
+
+showUserId("ff1a33c0-e73c-4f45-a894-42ee86115a12")
+showUserId(482)
+```
+
+**Penanganan Union Types**
+
+Masalah umum yang terjadi dalam penggunaan *union types* adalah ketika ingin menggunakan *methods* spesifik dari salah satu tipe data yang digunakan. Berikut contoh kodenya:
+
+```ts
+function showUserId(id: string | number) {
+	console.log("User ID: ", id.toUpperCase())
+}
+
+showUserId(482)
+```
+
+Kode tersebut akan menghasilkan error:
+
+```bash
+Property 'toUpperCase' does not exist on type 'string | number'.
+	Property 'toUpperCase' does not exist on type 'number'.
+```
+
+Error tersebut terjadi karena *method* `toUpperCase()` tidak terdapat pada tipe data `number`. yang mana dalam *case* tersebut, compiler tidak mengetahui apakah `id` bertipe `string` atau `number`. Untuk itu, kita dapat melakukan *type checking* terlebih dahulu sebelum menggunakan sebuah `method` seperti pada kode berikut:
+
+```ts
+function showUserId(id: string | number) {
+	if (typeof id === "string") {
+		console.log("User ID: ", id.toUpperCase())
+	} else {
+		console.log("User ID: ", id)
+	}
+}
+
+showUserId(482)
+```
+
+Contoh lain misalnya untuk menangani parameter dengan tipe *string* dan *array string* dapat dilihat pada kode berikut:
+
+```ts
+function welcomePeople(value: string[] | string) {
+	if (Array.isArray(value)) {
+		// Disini, "value" bertipe string array (string[])
+		console.log("Hello, " + x.join(" and "));
+	} else {
+		// Disini, "value" bertipe string
+		console.log("Welcome lone traveler " + x);
+	}
+}
+```
+
+#### Type Alias
+
+Merupakan cara kita untuk memberi sebuah **nama panggilan** pada sebuah tipe data, terutama untuk tipe data yang kompleks seperti objek. Tujuannya adalah agar kode lebih mudah dibaca dan dapat digunakan kembali (*reusable*).
+
+```ts
+type Location = {
+	name: string
+	address: string
+	coordinate: {
+		lat: number
+		lng: number
+	}
+}
+
+function showAddress(loc: Location) {
+	console.log("Name: ", loc.name)
+	console.log("Address: ", loc.address)
+	console.log("Coordinate: ", loc.coordinate)
+}
+
+showAddress({ name: "Gedung X", address: "Jl. Patimura No. 15", coordinate: { lat: 37.272011, lng: -115.815498 }})
+```
+
+#### Interfaces
+
+Merupakan cara lain untuk mendefinisikan bentuk atau `blueprint` dari suatu objek. Fungsinya sangat mirip dengan `type alias` akan tetapi dengan beberapa perbedaan.
+
+```ts
+interface Product {
+    name: string;
+    price: number;
+    isAvailable: boolean;
+}
+
+function showProduct(product: Product) {
+    console.log(`Produk: ${product.name}, Harga: Rp${product.price}`);
+}
+
+showProduct({ name: "Buku TypeScript", price: 150000, isAvailable: true });
+```
+
+**Perbedaan Interface dan Type Alias**
+
+Meskipun secara deklarasi dan penggunaan terlihat sama, keduanya mempunyai beberapa perbedaan:
+
+- ***Extending***: `interface` bisa di *extend* oleh `interface` lain, seperti konsep `inheritance` atau pewarisan dalam `OOP`. `type alias` sebenarnya dapat melakukan hal yang serupa dengan *intersection* `&`, akan tetapi untuk keperluan *extend*, interface lebih baik dari segi *syntaks*. Berikut adalah contoh dari konsep **extending**:
+
+	```ts
+	interface BaseObject {
+		name: string
+		address: string
+	}
+
+	interface ExtendedObject extends BaseObject {
+		type: "HOME" | "OFFICE"
+	}
+
+	// VS
+
+	type BaseObject = {
+		name: string
+		address: string
+	}
+
+	type ExtendedObject = BaseObject & {
+		type: "HOME" | "OFFICE"
+	}
+	```
+
+- ***Declaration Merging***: Ketika kita mendefinisikan `interface` dengan nama yang sama lebih dari sekali, *Typescript* akan menggabungkannya menjadi satu. Sementara itu, `type alias` tidak bisa melakukan hal ini. Berikut adalah contoh dari konsep **declaration merging**:
+
+	```ts
+	interface Room {
+		name: string
+		num: number
+	}
+	
+	interface Room {
+		floor: number
+	}
+	
+	// Pada akhirnya, Room akan menjadi:
+	interface Room {
+		name: string
+		num: number
+		floor: number
+	}
+	```
+
+#### Type Assertions
+
+Type assertions* bukanlah sebuah tipe data, melainkan hanya sebuah petunjuk untuk *Typescript* agar memperlakukan sebuah *value* sebagai tipe yang berbeda. Hal ini berguna ketika *Typescript* tidak memiliki cukup informasi untuk mengetahui tipe data yang sebenarnya, contohnya saat mengambil elemen dari DOM.
+
+```ts
+// TypeScript hanya tahu ini adalah HTMLElement secara umum
+const myCanvas = document.getElementById("main_canvas");
+
+// Kita tahu ini adalah elemen canvas, jadi kita beri tahu TypeScript
+const myCanvasAsserted = document.getElementById("main_canvas") as HTMLCanvasElement;
+// Sekarang kita bisa mengakses properti spesifik canvas seperti .getContext() tanpa error
+
+// Ada juga sintaks lain (kurung sudut), tapi 'as' lebih umum digunakan
+const myCanvasAsserted2 = <HTMLCanvasElement>document.getElementById("main_canvas");
+```
+
+> ⚠️ Penggunaan *type assertions* akan menonaktifkan pemeriksaan tipe. Jika salah memberikan tipe, misalnya elemen tersebut sebenarnya bukan *canvas*, maka kode akan *error* saat dijalankan di browser, bukan saat proses *compile* .
+
+#### Literal Types
+
+Memungkinkan kita untuk mendefinisikan tipe yang hanya bisa berisi satu nilai spesifik.
+
+```ts
+let responseStatus: "success";
+
+responseStatus = "success"; // OK
+// responseStatus = "error"; // Akan terjadi error karena tipe 'string' "error" tidak bisa diassign ke tipe '"success"'.
+```
+
+*Literal types* sendiri umumnya digunakan bersama dengan *union types*: 
+
+```ts
+// Variabel ini hanya boleh berisi salah satu dari tiga string spesifik ini
+let trafficLight: "red" | "yellow" | "green";
+
+trafficLight = "yellow"; // OK
+trafficLight = "red"; // OK
+// trafficLight = "blue"; // Akan terjadi error
+```
+
+Penggunaan *literal types* sangat berguna untuk mencegah kesalahan pengetikan dan membatasi *value* yang mungkin digunakan untuk sebuah variabel.
+
+#### null dan undefined
+
+Dalam *Typescript*, `null` (tidak ada nilai) dan `undefined` (variabel belum diinisialisasi) menjadi tipe data tersendiri. Secara *default*, proyek *Typescript* modern cukup *strict* dengan tipe *null* dan *undefined*. 
+
+```ts
+let nama: string = "Budi";
+// nama = null; // Error! Tipe 'null' tidak bisa diassign ke tipe 'string'.
+
+// Jika sebuah variabel memang bisa bernilai null, tipe 'null' harus didefinisikan
+let namaOrNull: string | null = "Andi";
+namaOrNull = null; // OK
+```
+
+#### Enums
+
+Merupakan cara untuk mendefinisikan sekumpulan nilai *constant*. Penggunaan *enum* bermanfaat untuk mencegah string yang salah ketik.
+
+**Numeric Enums**
+
+Secara *default*, *enum* akan memberikan nilai angka yang dimulai dari 0.
+
+```ts
+enum Direction {
+    Up,    // bernilai 0
+    Down,  // bernilai 1
+    Left,  // bernilai 2
+    Right  // bernilai 3
+}
+
+let playerDirection: Direction = Direction.Up;
+
+if (playerDirection === Direction.Up) {
+	// Lebih mudah dibaca daripada if (playerDirection === 0)
+    console.log("Pemain bergerak ke atas!");
+}
+```
+
+**String Enums**
+
+Untuk mempermudah proses *debugging*, kita dapat menggunakan *string enum*.
+
+```ts
+enum HttpStatus {
+    OK = "OK",
+    NotFound = "NOT_FOUND",
+    InternalServerError = "INTERNAL_SERVER_ERROR",
+}
+
+function handleResponse(status: HttpStatus) {
+    if (status === HttpStatus.OK) {
+        console.log("Respons berhasil!");
+    } else if (status === HttpStatus.NotFound) {
+        console.log("Data tidak ditemukan.");
+    }
+}
+
+handleResponse(HttpStatus.OK);
+```
 
 ### 5.7 **Contoh Website Sederhana dengan TypeScript**
 
