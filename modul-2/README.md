@@ -17,9 +17,9 @@ Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
 
    ```html
    <script>
-     function greet() {
-       alert("Hello, World!");
-     }
+   	function greet() {
+   		alert("Hello, World!");
+   	}
    </script>
    ```
 
@@ -61,7 +61,7 @@ Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
 
   ```javascript
   function greet(name) {
-    return `Hello, ${name}!`;
+  	return `Hello, ${name}!`;
   }
   ```
 
@@ -69,7 +69,7 @@ Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
 
   ```javascript
   const greet = function (name) {
-    return `Hello, ${name}!`;
+  	return `Hello, ${name}!`;
   };
   ```
 
@@ -87,11 +87,11 @@ Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
   let score = 85;
 
   if (score > 90) {
-    console.log("Excellent");
+  	console.log("Excellent");
   } else if (score > 70) {
-    console.log("Good");
+  	console.log("Good");
   } else {
-    console.log("Needs Improvement");
+  	console.log("Needs Improvement");
   }
   ```
 
@@ -101,7 +101,7 @@ Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
 
   ```javascript
   for (let i = 0; i < 5; i++) {
-    console.log(i);
+  	console.log(i);
   }
   ```
 
@@ -110,8 +110,8 @@ Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
   ```javascript
   let count = 0;
   while (count < 5) {
-    console.log(count);
-    count++;
+  	console.log(count);
+  	count++;
   }
   ```
 
@@ -129,8 +129,8 @@ Contoh menyimpan data:
 localStorage.setItem("username", "Alice");
 
 const user = {
-  name: "Alice",
-  age: 25,
+	name: "Alice",
+	age: 25,
 };
 localStorage.setItem("user", JSON.stringify(user));
 ```
@@ -222,7 +222,7 @@ Setelah memahami dasar-dasar, klean akan melanjutkan ke konsep yang lebih komple
 
   ```javascript
   fruits.forEach((fruit) => {
-    console.log(fruit);
+  	console.log(fruit);
   });
   ```
 
@@ -232,18 +232,18 @@ Setelah memahami dasar-dasar, klean akan melanjutkan ke konsep yang lebih komple
 
   ```javascript
   let person = {
-    name: "Alice",
-    age: 25,
-    greet: function () {
-      return `Hello, ${this.name}`;
-    },
+  	name: "Alice",
+  	age: 25,
+  	greet: function () {
+  		return `Hello, ${this.name}`;
+  	},
   };
   let work = {
-    name: "Lorem Ipsum",
-    position: "Software Engineer",
-    greet: () => {
-      return `Hello, ${work.name}`;
-    },
+  	name: "Lorem Ipsum",
+  	position: "Software Engineer",
+  	greet: () => {
+  		return `Hello, ${work.name}`;
+  	},
   };
   ```
 
@@ -290,7 +290,7 @@ Contoh:
 ```javascript
 const content = document.getElementById("content");
 content.innerHTML =
-  "<h1>Judul Baru</h1><p>Paragraf diubah dengan innerHTML.</p>";
+	"<h1>Judul Baru</h1><p>Paragraf diubah dengan innerHTML.</p>";
 ```
 
 #### 2.3.4. DOM Forms
@@ -302,9 +302,9 @@ Contoh menangani form:
 ```javascript
 const form = document.getElementById("myForm");
 form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const inputValue = document.getElementById("inputField").value;
-  alert(`Input value: ${inputValue}`);
+	event.preventDefault();
+	const inputValue = document.getElementById("inputField").value;
+	alert(`Input value: ${inputValue}`);
 });
 ```
 
@@ -339,7 +339,7 @@ Contoh event `click` yang digunakan di HTML nantinya:
 
 ```javascript
 function changeText(id) {
-  id.innerHTML = "Huft!";
+	id.innerHTML = "Huft!";
 }
 ```
 
@@ -351,7 +351,7 @@ Contoh menangani klik tombol:
 
 ```javascript
 button.addEventListener("click", () => {
-  console.log("Button was clicked!");
+	console.log("Button was clicked!");
 });
 ```
 
@@ -376,7 +376,7 @@ Contoh dengan `NodeList`:
 ```javascript
 const paragraphs = document.querySelectorAll("p");
 paragraphs.forEach((p) => {
-  p.style.color = "green";
+	p.style.color = "green";
 });
 ```
 
@@ -385,7 +385,7 @@ Contoh dengan `HTMLCollection`:
 ```javascript
 const divs = document.getElementsByTagName("div");
 for (let i = 0; i < divs.length; i++) {
-  divs[i].style.backgroundColor = "yellow";
+	divs[i].style.backgroundColor = "yellow";
 }
 ```
 
@@ -399,10 +399,10 @@ Di bagian ini, klean akan mempelajari fitur dan konsep lanjutan dalam JavaScript
 
   ```javascript
   const fetchData = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const data = { name: "Alice" };
-      resolve(data);
-    }, 2000);
+  	setTimeout(() => {
+  		const data = { name: "Alice" };
+  		resolve(data);
+  	}, 2000);
   });
 
   fetchData.then((data) => console.log(data));
@@ -412,9 +412,9 @@ Di bagian ini, klean akan mempelajari fitur dan konsep lanjutan dalam JavaScript
 
   ```javascript
   async function fetchData() {
-    const response = await fetch("https://api.example.com/data");
-    const data = await response.json();
-    console.log(data);
+  	const response = await fetch("https://api.example.com/data");
+  	const data = await response.json();
+  	console.log(data);
   }
 
   fetchData();
@@ -424,18 +424,18 @@ Di bagian ini, klean akan mempelajari fitur dan konsep lanjutan dalam JavaScript
 
   ```javascript
   function fetchData(callback) {
-    setTimeout(() => {
-      const data = {
-        name: "Alice",
-        age: 24,
-        posistion: "Software Engineer",
-      };
-      callback(data);
-    }, 2000);
+  	setTimeout(() => {
+  		const data = {
+  			name: "Alice",
+  			age: 24,
+  			posistion: "Software Engineer",
+  		};
+  		callback(data);
+  	}, 2000);
   }
 
   function handleData(data) {
-    console.log(data);
+  	console.log(data);
   }
 
   fetchData(handleData);
@@ -449,9 +449,9 @@ Fungsi `fetchData` menerima fungsi callback (`handleData`) sebagai argumen, yang
 
   ```javascript
   try {
-    // kode yang mungkin terjadi error
+  	// kode yang mungkin terjadi error
   } catch (error) {
-    console.error("Error occurred:", error);
+  	console.error("Error occurred:", error);
   }
   ```
 
@@ -461,11 +461,11 @@ Fungsi `fetchData` menerima fungsi callback (`handleData`) sebagai argumen, yang
 
   ```javascript
   function pesanKamuKeDia() {
-    const chatKamu = "Kamu dah tidur belum";
-    return function pesanYangDiaSukai() {
-      const chatYangDiaSukai = "Haii, sudah makan belum?";
-      console.log({ chatYangDiaBaca: chatYangDiaSukai });
-    };
+  	const chatKamu = "Kamu dah tidur belum";
+  	return function pesanYangDiaSukai() {
+  		const chatYangDiaSukai = "Haii, sudah makan belum?";
+  		console.log({ chatYangDiaBaca: chatYangDiaSukai });
+  	};
   }
 
   const hasil = pesanKamuKeDia();
@@ -501,9 +501,9 @@ Pada level ini, klean akan diberikan topik-topik lanjutan dan praktik JavaScript
 
   ```javascript
   document.querySelector("#parent").addEventListener("click", (event) => {
-    if (event.target.matches("button")) {
-      console.log("Button clicked:", event.target.textContent);
-    }
+  	if (event.target.matches("button")) {
+  		console.log("Button clicked:", event.target.textContent);
+  	}
   });
   ```
 
@@ -514,6 +514,7 @@ Pada level ini, klean akan diberikan topik-topik lanjutan dan praktik JavaScript
 - **Gunakan linting tools** seperti ESLint untuk menjaga konsistensi kode
 
 ## 5. Typescript & NodeJS
+
 <img width="256" height="256" alt="Typescript" src="https://github.com/user-attachments/assets/8d1951b2-6a05-4bf4-b13d-00ffd65611fc" /> 
 <img width="256" height="256" alt="NodeJS" src="https://github.com/user-attachments/assets/e188cfbf-bd7f-4fed-90ae-2947425cf04b" />
 
@@ -558,7 +559,7 @@ Proses Transpilasi kode yang ditulis dalam TypeScript tidak dijalankan langsung 
 ### 5.3 **Cara Menginstal `NodeJS`**
 
 - Download _prebuilt-installer_ NodeJS (gunakan versi yang memiliki label `LTS`) pada [link berikut](https://nodejs.org/en/download). Nantinya akan muncul tampilan seperti di bawah ini
-<img width="1094" height="846" alt="image" src="https://github.com/user-attachments/assets/a2f91bca-2cda-4f67-a85a-dd41e4af6e3f" />
+  <img width="1094" height="846" alt="image" src="https://github.com/user-attachments/assets/a2f91bca-2cda-4f67-a85a-dd41e4af6e3f" />
 
 - Install nodeJS melalui _prebuilt-installer_ yang sudah kalian unduh.
 
@@ -617,15 +618,19 @@ Menginstal Package Manager `PNPM` dapat dilakukan dengan menggunakan perintah da
   ```
 
 ### 5.4 **Memulai Proyek 'TypeScript' Pertama🚀**
+
 #### - Install TypeScript secara Global:
+
 Setelah Node.js terpasang, kita bisa install TypeScript menggunakan npm (Node Package Manager). Buka terminal dan jalankan:
 
 ```bash
 npm install -g typescript
 ```
+
 Perintah -g artinya kita menginstallnya secara global, jadi bisa dipakai di proyek mana pun.
 
 #### 1. Buat Folder Proyek
+
 Pertama, buat sebuah direktori (folder) baru untuk proyekmu dan masuk ke dalamnya.
 
 ```bash
@@ -634,16 +639,19 @@ cd proyek-typescript-pertama
 ```
 
 #### 2. Inisiasi Proyek Node.js
+
 Setiap proyek JavaScript/TypeScript dimulai dengan file package.json. File ini berisi metadata proyek dan daftar dependensi.
 
 ```bash
 npm init -y
 ```
+
 <img width="607" height="302" alt="image" src="https://github.com/user-attachments/assets/f932d3f8-eacb-48e5-95f6-db81e067c6bf" />
 
 Perintah ini akan membuat file package.json dengan konfigurasi default.
 
 #### 3. Instal TypeScript
+
 Selanjutnya, instal TypeScript sebagai development dependency. Ini berarti TypeScript hanya dibutuhkan selama proses pengembangan, bukan saat aplikasi dijalankan di produksi.
 
 ```bash
@@ -651,17 +659,21 @@ npm install typescript --save-dev
 ```
 
 #### 4. Buat File Konfigurasi TypeScript
+
 TypeScript menggunakan file tsconfig.json untuk mengelola opsi kompilasi proyek.
 
 ```bash
 npx tsc --init
 ```
+
 Perintah ini akan membuat file tsconfig.json dengan banyak opsi yang sudah diberi komentar penjelasan. Untuk saat ini, kita bisa menggunakan konfigurasi default.
 
 <img width="341" height="150" alt="image" src="https://github.com/user-attachments/assets/1e444959-79e4-4e3c-9352-16a2e78e1688" />
 
 #### 5. Buat Folder src dan Tulis Kode
+
 Merupakan praktik umum untuk menempatkan semua kode sumber kita di dalam folder src.
+
 - Buat folder src:
 
 ```bash
@@ -669,7 +681,7 @@ mkdir src
 ```
 
 - Buat file baru di dalam src bernama index.ts.
-Buka src/index.ts dan tulis kode sederhana berikut:
+  Buka src/index.ts dan tulis kode sederhana berikut:
 
 ```TypeScript
 function sapa(nama: string): string {
@@ -682,14 +694,17 @@ console.log(sapa(pengguna));
 ```
 
 #### 6. Kompilasi Kode TypeScript
+
 Kode TypeScript (.ts) tidak bisa langsung dijalankan oleh Node.js atau browser. Kita harus mengompilasinya menjadi JavaScript (.js) terlebih dahulu.
 
 ```bash
 npx tsc
 ```
+
 Perintah ini akan membaca tsconfig.json, mencari semua file .ts (dalam hal ini src/index.ts), dan mengompilasinya menjadi JavaScript. Secara default, hasilnya akan disimpan di folder dist. Kamu sekarang akan melihat folder baru dist berisi file index.js.
 
 #### 7. Jalankan Kode JavaScript Hasil Kompilasi
+
 Terakhir, jalankan file JavaScript yang sudah jadi menggunakan Node.js.
 
 ```bash
@@ -697,6 +712,15 @@ node src/index.js
 ```
 
 Kamu akan melihat output di terminal:
+
 ```bash
 Halo, Programmer! Selamat datang di dunia TypeScript.
 ```
+
+### 5.7 **Contoh Website Sederhana dengan TypeScript**
+
+Kalian bisa lihat contoh project sederhana menggunakan TypeScript pada website berikut: [TypeScript Calculator Website](https://ts-js-website.netlify.app/ts/)
+
+Sebagai referensi, kalian bisa lihat source codenya pada repository berikut: [TypeScript Calculator Repository](https://github.com/harvdt/ts-js-website/tree/main/ts)
+
+Di situ kalian juga bisa melihat perbedaan penggunaan type safety pada TypeScript dibandingkan dengan JavaScript biasa. Berikut adalah website JavaScript: [JavaScript Calculator Website](https://ts-js-website.netlify.app/js/)
