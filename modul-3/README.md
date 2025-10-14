@@ -4,7 +4,7 @@
 
 Stack (kombinasi) yang digunakan pada modul back-end ini adalah:
 
-<p><strong>NodeJS + ExpressJS + TypeScript + MongoDB</strong></p>
+<p><strong>NodeJS + ExpressJS + TypeScript + Prisma ORM + PostgreSQL</strong></p>
 
 - `NodeJS + ExpressJS`
 
@@ -14,171 +14,9 @@ Stack (kombinasi) yang digunakan pada modul back-end ini adalah:
 
 ![ts](./images/typescript.png)
 
-- `MongoDB`
+- `PostgreSQL`
 
-![mongodb](./images/mongodb-logo.png)
-
-## TypeScrypt
-
-### Apa itu TypeScript🤔???
-
-TypeScript adalah sebuah **bahasa pemrograman yang dikembangkan di atas JavaScript**. Dibandingkan dengan JavaScript, TypeScript menyediakan fitur tambahan yang mempermudah pengembangan aplikasi berskala besar.
-
-TypeScript adalah superset dari JavaScript, yang berarti **semua kode JavaScript yang valid juga valid di TypeScript**. Namun, TypeScript menambahkan syntax tambahan seperti tipe data (**type**) dan antarmuka (**interface**) untuk memberikan lebih banyak struktur pada kode.
-
-Proses Transpilasi kode yang ditulis dalam TypeScript tidak dijalankan langsung di browser atau Node.js. Kode ini perlu dikonversi menjadi JavaScript terlebih dahulu melalui proses yang disebut transpiling. Setelah dikonversi, hasilnya adalah kode JavaScript biasa yang dapat dijalankan di:
-
-- **Browser**: Untuk membuat aplikasi web.
-
-- **Node.js atau Deno**: Untuk membuat aplikasi server atau utilitas lain berbasis JavaScript.
-
-### Mengapa Typescript😣???
-
-- **Integrasi IDE**
-
-  TypeScript dirancang untuk bekerja lebih baik dengan Code Editor seperti VS Code, sehingga memudahkan dalam penulisan dan perbaikan kode.
-
-- **Error Checking**
-
-  Salah satu keuntungan utama TypeScript adalah kemampuannya untuk menangkap kesalahan langsung saat penulisan kode, sehingga bug dapat diperbaiki sebelum program dijalankan.
-
-- **Scalable**
-
-  TypeScript sangat berguna dalam proyek berskala besar karena adanya tipe data yang lebih jelas, sehingga memudahkan pengembang dalam memahami dan menjaga kualitas kode.
-
-### Javascript😁 vs Typescript😎
-
-| **Fitur**             | **TypeScript**                                                                  | **JavaScript**                                        |
-| --------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| **Tipe Data**         | Menyediakan tipe statis                                                         | Bertipe dinamis                                       |
-| **Perkakas**          | Dilengkapi dengan IDE dan editor kode                                           | Tools bawaan terbatas                                 |
-| **Sintaks**           | Mirip dengan JavaScript, dengan fitur tambahan                                  | Syntax Standar JavaScript standar                     |
-| **Kompatibilitas**    | Kompatibel dengan JavaScript                                                    | Tidak dapat menjalankan TypeScript di file JavaScript |
-| **Debugging**         | Penulisan kode yang lebih kuat/strict dapat membantu mengidentifikasi kesalahan | Memerlukan lebih banyak debugging dan pengujian       |
-| **Tingkat Kesulitan** | Membutuhkan waktu untuk mempelajari fitur tambahan                              | Sintaks JavaScript standar lebih familier             |
-| **Tipe Bahasa**       | Object-oriented                                                                 | Prototype-based language                              |
-
-1. Deklarasi Variabel dengan Tipe Data
-
-- **JavaScript**: Tidak menggunakan tipe data statis.
-
-- **TypeScript**: Mendukung tipe data statis dengan anotasi tipe.
-
-```typescript
-// JavaScript
-let name = "John"; // Tipe data ditentukan saat runtime
-
-// TypeScript
-let name: string = "John"; // Tipe data string secara eksplisit
-```
-
-2. Fungsi dengan Tipe Parameter dan Return
-
-- **JavaScript**: Tidak menentukan tipe data pada parameter dan nilai yang dikembalikan.
-
-- **TypeScript**: Memungkinkan penentuan tipe data untuk parameter dan nilai kembalian.
-
-```typescript
-// JavaScript
-function add(a, b) {
-  return a + b;
-}
-
-// TypeScript
-function add(a: number, b: number): number {
-  return a + b;
-}
-```
-
-3. Interface
-
-- JavaScript: Tidak memiliki konsep interface.
-- TypeScript: Menyediakan interface untuk mendefinisikan bentuk objek secara eksplisit.
-
-```javascript
-// TypeScript
-interface Person {
-  name: string;
-  age: number;
-}
-
-let person: Person = {
-  name: "Alice",
-  age: 25,
-};
-```
-
-4. Class dan Properti
-
-- **JavaScript**: Tidak menggunakan tipe pada properti dan tidak mendukung akses modifier secara langsung.
-
-- **TypeScript**: Mendukung tipe pada properti dan akses modifier seperti public, private, dan protected.
-
-```typescript
-// JavaScript
-class Animal {
-  constructor(name) {
-    this.name = name;
-  }
-}
-
-let dog = new Animal("Dog");
-
-// TypeScript
-class Animal {
-  private name: string;
-
-  constructor(name: string) {
-    this.name = name;
-  }
-
-  public getName(): string {
-    return this.name;
-  }
-}
-
-let dog: Animal = new Animal("Dog");
-```
-
-1. Type Assertions
-
-- **JavaScript**: Tidak mendukung asersi tipe.
-
-- **TypeScript**: Mendukung asersi tipe untuk menyatakan bahwa suatu nilai adalah tipe tertentu.
-
-```typescript
-// TypeScript
-let value: any = "Hello World";
-let lengthOfString: number = (value as string).length; // Asersi bahwa value adalah string
-```
-
-6. Optional Parameters
-
-- **JavaScript**: Tidak memiliki fitur parameter opsional secara eksplisit.
-
-- **TypeScript**: Mendukung parameter opsional dengan tanda ?.
-
-```typescript
-// TypeScript
-function greet(name: string, age?: number): string {
-  return age ? `Hello ${name}, age ${age}` : `Hello ${name}`;
-}
-```
-
-7. Generics
-
-- **JavaScript**: Tidak mendukung generics.
-
-- **TypeScript**: Mendukung penggunaan generics untuk fungsi atau class yang fleksibel dengan berbagai tipe.
-
-```typescript
-// TypeScript
-function identity<T>(arg: T): T {
-  return arg;
-}
-
-let output = identity<string>("Hello"); // Menggunakan generics dengan tipe string
-```
+![postgre](./images/psql.jpg)
 
 ## ExpressJS
 
@@ -190,32 +28,9 @@ Dengan adanya framework seperti ExpressJS ini, maka developer dapat lebih berfok
 
 Sebelum memulai proyek express, pastikan kalian telah menginstal `NodeJS` dan package manager NodeJS seperti `npm`, `yarn`, atau `pnpm`
 
-#### **Cara Menginstal `NodeJS`**
-
-- Download _prebuilt-installer_ NodeJS (gunakan versi yang memiliki label `LTS`) pada [link berikut](https://nodejs.org/en/download/prebuilt-installer). Nantinya akan muncul tampilan seperti di bawah ini
-  ![install_node](./images/install_node.png)
-
-- Install nodeJS melalui _prebuilt-installer_ yang sudah kalian unduh.
-
-- Package Manager `NPM` juga akan terinstal.
-
-- untuk memeriksa apakah `NodeJS` dan `NPM` telah terpasang, gunakan command berikut pada terminal:
-
-  - Cek versi `NodeJS`
-
-  ```bash
-  node -v
-  ```
-
-  - Cek versi `NPM`
-
-  ```bash
-  npm -v
-  ```
-
-  ![node_npm_version](./images/node_npm_version.png)
-
 #### **Cara Menginstal `Yarn` (Opsional)**
+
+Pada modul sebelumnya, kita telah mengetahui cara menginstal NODE JS. Setelah menginstalnya, kita juga mendapat sebuah package manager yang disebut dengan `NPM`. Kali ini, kita akan mencoba menginstal package manager yang lain.
 
 Menginstal Package Manager `Yarn` dapat dilakukan dengan menggunakan perintah dari `NPM`.
 
@@ -703,356 +518,45 @@ Response yang baik berarti memiliki informasi yang lengkap dan mudah untuk dibac
 
 - `metadata (opsional)`: Metadata biasanya digunakan pada permintaan yang memiliki pagination dan sejenisnya. Metadata menunjukkan bagaimana kondisi data yang diberikan.
 
-## MongoDB
+## PostgreSQL
 
-MongoDB adalah sistem manajemen basis data NoSQL yang bersifat open-source dan dikembangkan oleh MongoDB Inc. Basis data ini menyimpan data dalam format dokumen BSON (Binary JSON) yang mirip dengan JSON, menjadikannya fleksibel dalam menyimpan data semi-terstruktur dan tidak terstruktur. Tidak seperti basis data relasional (RDBMS) yang menggunakan tabel dan kolom, MongoDB menggunakan koleksi (collections) dan dokumen (documents) untuk menyimpan data, sehingga lebih mudah beradaptasi dengan perubahan struktur data tanpa memerlukan migrasi database yang kompleks.
+## Neon Database
 
-### Mengapa MongoDB?
+## Prisma ORM
 
-MongoDB memiliki layanan bernama `Mongo Atlas` yang memungkinkan pengguna untuk membuat database Mongo melalui cloud, sehingga pengguna tidak perlu menginstal MongoDB secara lokal untuk membuat database.
+### Pendahuluan
 
-`Mongo Atlas` juga memiliki versi gratis yang bisa digunakan dengan limit penyimpanan sebesar `512 MB`
+lorem
 
-### **Cara Konfigurasi Akun `Mongo Atlas`**
+### Mengapa Menggunakan Prisma ORM?
 
-1. Masuk ke [website MongoDB](https://www.mongodb.com/) kemudian tekan tombol `Try Atlas Free`
+lorem
 
-![try_atlas](./images/try_atlas.png)
+### Inisiasi Prisma pada Express
 
-2. Buat akun baru, bisa dengan mengisi form yang ada atau sign-up menggunakan akun google
+lorem
 
-3. Isi pertanyaan yang diberikan dengan jawaban yang menunjukkan bahwa kalian akan menggunakan `Mongo Atlas` untuk pembelajaran
+### CRUD Menggunakan Prisma
 
-![learn_atlas](./images/learn_atlas.png)
+lorem
 
-4. Pilih pilihan cluster `M0` untuk mendapatkan cluster gratis
+### Filtering & Pagination
 
-![free_atlas](./images/free_atlas.png)
+lorem
 
-5. Masukkan kredensial bebas. **Penting**: Karena Atlas ini berada di cloud dan dapat diakses oleh siapapun, gunakan password yang kuat untuk mencegah hal - hal yang tidak diinginkan
+### Aggregate function
 
-![cred_atlas](./images/cred_atlas.png)
+lorem
 
-6. Tekan `Create Database User` kemudian `Choose a Connection Method`
+### Transaction & Batch Queries
 
-7. Pilih pilihan `Drivers`, kemudian salin dan simpan `Connection String` kalian.
+lorem
 
-### **Cara Mendapatkan Database URI dari `Mongo Atlas`**
+### Raw Query menggunakan Prisma
 
-Sebelumnya, kalian sudah mendapatkan connection string yang mengarah ke cluster `Mongo Atlas` kalian. Namun, untuk menggunakannya pada proyek Express kita, connection string tersebut perlu diedit agar dapat mengarah langsung ke database MongoDB kita.
+lorem
 
-1. Pada dashboard Atlas, buat collection baru dengan menekan `Clusters` > `Browse Colelctions` > `Create Database`
-
-![create_db](./images/create_db.png)
-
-2. `Database Name` merupakan nama database yang akan dibuat, sementara `Collection Name` merupakan nama tabel yang akan dibuat.
-
-3. Ubah connection string kalian dengan menambahkan nama database sebelum simbol query `?`
-
-```
-mongodb+srv://adminrahasia:<your_password>@cluster-belajar.rr2ju.mongodb.net/<database_name>?retryWrites=true&w=majority&appName=cluster-belajar
-```
-
-## Mongo Client🤖
-
-### Konfigurasi Mongo Client di ExpressJS😶‍🌫️
-
-Untuk membuat sebuah koneksi dari ExpressJS ke MongoDB, harus dibuat sebuah file environment `.env`. Di dalamnya dapat diisi dengan variabel yang berfungsi untuk melakukan define koneksi database maupun port. Berikut contoh file `.env` dengan menggunakan MongoDB Atlas.
-
-```conf
-ATLAS_URI=mongodb+srv://<username>:<password>@sandbox.jadwj.mongodb.net/myFirstDatabase?retryWrites=
-
-PORT=5050
-```
-
-Untuk melakukan import dari `.env`, buat sebuah file baru `loadEnvironment.mjs` untuk load dari `.env` yang sudah dibuat sebelumnya. Berikut isinya.
-
-```javascript
-import dotenv from "dotenv";
-dotenv.config();
-```
-
-Kemudian di bagian `index.mjs` dapat ditambahkan import dari `loadEnvironment.mjs`.
-
-```javascript
-// Load environment variables
-import "./loadEnvironment.mjs";
-```
-
-Selanjutnya, buat `server/db/conn.mjs` dan ganti kontennya dengan kode berikut. Kode ini akan membuat objek basis data global yang dapat digunakan kembali oleh komponen server lainnya.
-
-```javascript
-import { MongoClient } from "mongodb";
-const connectionString = process.env.ATLAS_URI || "";
-const client = new MongoClient(connectionString);
-let conn;
-try {
-  conn = await client.connect();
-} catch (e) {
-  console.error(e);
-}
-let db = conn.db("sample_training");
-export default db;
-```
-
-Kode ini menggunakan string koneksi yang disediakan dalam file .env dan membuat klien baru. Setelah klien di-define, kode ini akan mencoba membuat koneksi baru ke database. Database kemudian diekspor jika koneksi berhasil. Hal ini memberikan sebuah interface yang seragam yang dapat digunakan kembali di semua modul yang akan dibuat selanjutnya.
-
-### MongoDB Atlas connection string
-
-### 1. Membuat Cluster di MongoDB Atlas
-
-1. **Daftar** atau **Login** ke [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register).
-
-```javascript
-// Di bacaan sebelumnya sudah ada, tapi gaapa kita tambahi juga di sini
-```
-
-![node_express](./images/create-new-projects.png)
-
-2. **Buat Cluster Baru**:
-   - Setelah login, klik **"Create a new projects"**.
-   - Klik **Create projects**.
-
-![node_express](./images/create-a-projects.png)
-
-![node_express](./images/tambah-anggota.png)
-
-- Setelah itu bisa klik **Create Projects** Pilih **provider** (misalnya AWS, GCP, atau Azure) dan lokasi data center yang diinginkan. Pilih cluster sesuai dengan kebutuhan (Free Tier untuk versi gratis).
-
-### 2. Mendapatkan Connection String
-
-1. Setelah cluster berhasil dibuat, klik **Connect** pada cluster yang baru saja dibuat.
-
-![node_express](./images/connect-clusters.png)
-
-2. Pilih **Connect**.
-3. Pada bagian **Connection String**, akan melihat string seperti ini:
-
-![node_express](./images/mongodb-connect.png)
-
-4. klik MongoDB for VS Code (klo ada yang ga pake VS Code bisa pake drivers, based on bacaan sebelumnya)
-
-![node_express](./images/copy-untuk-string.png)
-
-```plaintext
-mongodb+srv://<username>:<password>@cluster0.xxxxxxxxxxx
-```
-
-4. **Salin connection string**, lalu ganti `<username>` dan `<password>` dengan username dan password yang dibuat di langkah sebelumnya.
-5. **Tempelkan string tersebut** di file `.env` seperti ini:
-
-   ```conf
-   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxxxxxxxx
-   ```
-
-### 3. Menggunakan Connection String di ExpressJS
-
-Ikuti langkah berikut untuk menggunakan connection string di aplikasi ExpressJS:
-
-1. **Instal dotenv dan MongoDB client**, tapi karna client sudah, jadi yang ini pakai mongoose:
-
-   ```bash
-   npm install dotenv mongoose
-   ```
-
-2. **Buat file `.env`** di root folder aplikasi dengan menambahkan connection string dan port server seperti ini:
-
-   ```conf
-   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxxxxxxxx
-   PORT=8080
-   ```
-
-3. **Buat `loadEnvironment.mjs`** atau **`configDB.ts`** untuk mengimpor variabel lingkungan dari `.env`:
-
-   ```javascript
-   import dotenv from "dotenv";
-   dotenv.config();
-   ```
-
-4. **Buat koneksi MongoDB lib mongoose di `server/db/configDb.ts`**:
-
-   ```javascript
-   const mongoose = require("mongoose");
-
-   const connectDB = async () => {
-     const url = process.env.MONGO_DB_URI || "";
-     try {
-       await mongoose.connect(url);
-       console.log("MongoDB okee");
-     } catch (error) {
-       console.log("Ngga bisa connect ngab " + error.message);
-     }
-   };
-   module.exports = connectDB;
-   ```
-
-5. **Gunakan koneksi di `index.mjs`**:
-
-   ```javascript
-   import express from "express";
-   import "./loadEnvironment.mjs"; // Load environment variables
-   import db from "./server/db/configDb"; // Import MongoDB connection
-
-   connectDB();
-
-   const app = express();
-   const port = process.env.PORT || 3000;
-
-   app.get("/", (req, res) => {
-     res.send("Welcome to Express + MongoDB Atlas API!");
-   });
-
-   app.listen(port, () => {
-     console.log(`Server running on http://localhost:${port}`);
-   });
-   ```
-
-Setelah semua langkah selesai, dapat menjalankan aplikasi dengan menjalankan perintah:
-
-```bash
-node index.mjs
-```
-
-### Membuat CRUD API dengan ExpressJS dan MongoClient🤠
-
-Dalam contoh ini, akan digunakan contoh yang disediakan dari https://github.com/mongodb-developer/mongodb-express-rest-api-example. Folder structure servernya adalah sebagai berikut.
-
-```
-server
-    ├── .env
-    ├── db
-    │   └── conn.mjs
-    ├── index.mjs
-    ├── loadEnvironment.mjs
-    └── routes
-        └── posts.mjs
-```
-
-- `.env`: File konfigurasi yang menyimpan detail string koneksi MongoDB.
-- `db/conn.mjs`: Mengekspos koneksi global ke basis database.
-- `index.mjs`: Titik masuk utama untuk server Express.
-- `loadEnvironment.mjs`: Memuat variabel environment (.env).
-- `routes/posts.mjs`: Mengekspos endpoint REST API dan menjalankan logika bisnisnya.
-
-1. Handling HTTP request
-   Pada contoh ini, segala route dari server akan menuju file `server/routes/posts.mjs`. Kemudian semua modul dari request yang data dari enpoint `/posts` akan dilakukan berdasarkan pemenaggilan code berikut pada `index.mjs`.
-
-```javascript
-// Load the /posts routes
-app.use("/posts", posts);
-```
-
-2. Read route
-   Fungsi ini mengembalikan daftar 50 artikel pada koleksi posts melalui permintaan **GET** di route `/posts`.
-
-```javascript
-// Get 50 posts
-router.get("/", async (req, res) => {
-  let collection = await db.collection("posts");
-  let results = await collection.find({}).limit(50).toArray();
-  res.send(results).status(200);
-});
-```
-
-- Menetapkan collection untuk mengakses koleksi posts.
-- Menggunakan `find()` untuk mencari dokumen dan `limit()` untuk membatasi hasil.
-- Mengirim hasil ke klien dengan `res.send()` dan menambahkan kode status `200`.
-
-3. Read Route (Advance)
-   Fungsi ini mengembalikan tiga artikel terbaru menggunakan pipeline agregasi.
-
-```javascript
-// Get new posts
-router.get("/latest", async (req, res) => {
-  let collection = await db.collection("posts");
-  let results = await collection
-    .aggregate([
-      { $project: { author: 1, title: 1, tags: 1, date: 1 } },
-      { $sort: { date: -1 } },
-      { $limit: 3 },
-    ])
-    .toArray();
-  res.send(results).status(200);
-});
-```
-
-Pipeline agregasi digunakan untuk memproyeksikan fields yang diperlukan, mengurutkan berdasarkan tanggal, dan membatasi hasil ke tiga artikel terbaru.
-
-4. Read Single Result
-   Mengembalikan artikel berdasarkan parameter `id` dengan menggunakan route dinamis.
-
-```javascript
-// Get by id
-router.get("/:id", async (req, res) => {
-  let collection = await db.collection("posts");
-  let query = { _id: ObjectId(req.params.id) };
-  let result = await collection.findOne(query);
-  if (!result) res.send("Not found").status(404);
-  else res.send(result).status(200);
-});
-```
-
-- Mengambil `id` sebagai parameter dari URL, mengonversinya menjadi `ObjectId`, dan mencari dokumen yang sesuai.
-- Jika tidak ditemukan, mengirim status `404`.
-
-5. Create
-   Menambahkan artikel baru ke koleksi `posts` melalui metode **POST**.
-
-```javascript
-// Create new post
-router.post("/", async (req, res) => {
-  let collection = await db.collection("posts");
-  let newDocument = req.body;
-  newDocument.date = new Date();
-  let result = await collection.insertOne(newDocument);
-  res.send(result).status(204);
-});
-```
-
-Mengambil body dari request, menambahkan tanggal sebagai timestamp, dan menyimpannya dalam koleksi menggunakan `insertOne()`.
-
-6. Update
-   Menambahkan komentar baru pada artikel dengan metode PATCH.
-
-```javascript
-// Add new comment
-router.patch("/comment/:id", async (req, res) => {
-  const query = { _id: ObjectId(req.params.id) };
-  const updates = {
-    $push: { comments: req.body },
-  };
-  let collection = await db.collection("posts");
-  let result = await collection.updateOne(query, updates);
-  res.send(result).status(200);
-});
-```
-
-`updateOne()` menggunakan operator `$push` untuk menambahkan komentar ke array comments.
-
-7. Delete
-   Menghapus artikel dari koleksi `posts`.
-
-```javascript
-// Delete post by id
-router.delete("/:id", async (req, res) => {
-  const query = { _id: ObjectId(req.params.id) };
-  const collection = db.collection("posts");
-  let result = await collection.deleteOne(query);
-  res.send(result).status(200);
-});
-```
-
-Menggunakan `deleteOne()` dengan `id` untuk menghapus dokumen yang sesuai.
-
-8. Testing API
-   Pengujian API dapat dilakukan menggunakan Postman atau perintah curl. Contoh pengambilan artikel terbaru:
-
-```bash
-curl localhost:5050/posts/latest
-```
-
-Pastikan port sudah sesuai dengan port yang sudah di-define di environment.
-<br>
+## Aplikasi Testing API
 
 - Berikut link download Postman untuk melakukan testing API (sangat disarankan dan sangat membantu).
   https://www.postman.com/downloads/
