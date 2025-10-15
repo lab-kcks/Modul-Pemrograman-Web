@@ -4,7 +4,7 @@
 
 Stack (kombinasi) yang digunakan pada modul back-end ini adalah:
 
-<p><strong>NodeJS + ExpressJS + TypeScript + PostgreSQL</strong></p>
+<p><strong>NodeJS + ExpressJS + TypeScript + Prisma ORM + PostgreSQL</strong></p>
 
 - `NodeJS + ExpressJS`
 
@@ -16,7 +16,7 @@ Stack (kombinasi) yang digunakan pada modul back-end ini adalah:
 
 - `PostgreSQL`
 
-![postgresql](./images/postgresql.png)
+![postgre](./images/psql.jpg)
 
 ## ExpressJS
 
@@ -28,32 +28,9 @@ Dengan adanya framework seperti ExpressJS ini, maka developer dapat lebih berfok
 
 Sebelum memulai proyek express, pastikan kalian telah menginstal `NodeJS` dan package manager NodeJS seperti `npm`, `yarn`, atau `pnpm`
 
-#### **Cara Menginstal `NodeJS`**
-
-- Download _prebuilt-installer_ NodeJS (gunakan versi yang memiliki label `LTS`) pada [link berikut](https://nodejs.org/en/download/prebuilt-installer). Nantinya akan muncul tampilan seperti di bawah ini
-  ![install_node](./images/install_node.png)
-
-- Install nodeJS melalui _prebuilt-installer_ yang sudah kalian unduh.
-
-- Package Manager `NPM` juga akan terinstal.
-
-- untuk memeriksa apakah `NodeJS` dan `NPM` telah terpasang, gunakan command berikut pada terminal:
-
-  - Cek versi `NodeJS`
-
-  ```bash
-  node -v
-  ```
-
-  - Cek versi `NPM`
-
-  ```bash
-  npm -v
-  ```
-
-  ![node_npm_version](./images/node_npm_version.png)
-
 #### **Cara Menginstal `Yarn` (Opsional)**
+
+Pada modul sebelumnya, kita telah mengetahui cara menginstal NODE JS. Setelah menginstalnya, kita juga mendapat sebuah package manager yang disebut dengan `NPM`. Kali ini, kita akan mencoba menginstal package manager yang lain.
 
 Menginstal Package Manager `Yarn` dapat dilakukan dengan menggunakan perintah dari `NPM`.
 
@@ -540,6 +517,20 @@ Response yang baik berarti memiliki informasi yang lengkap dan mudah untuk dibac
 - `data`: Objek yang berisi semua data yang diminta klien
 
 - `metadata (opsional)`: Metadata biasanya digunakan pada permintaan yang memiliki pagination dan sejenisnya. Metadata menunjukkan bagaimana kondisi data yang diberikan.
+
+## PostgreSQL
+
+## Neon Database
+
+## Prisma ORM
+
+### Pendahuluan
+
+lorem
+
+### Mengapa Menggunakan Prisma ORM?
+
+lorem
 
 ## Inisiasi Prisma pada Express
 
@@ -1300,6 +1291,21 @@ process.on('SIGINT', async () => {
   process.exit(0);
 });
 ```
+### Filtering & Pagination
+
+lorem
+
+### Aggregate function
+
+lorem
+
+### Transaction & Batch Queries
+
+lorem
+
+### Raw Query menggunakan Prisma
+
+lorem
 
 ## Referensi
 
@@ -1310,6 +1316,8 @@ process.on('SIGINT', async () => {
 - [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+
+## Aplikasi Testing API
 
 - Berikut link download Postman untuk melakukan testing API (sangat disarankan dan sangat membantu)
   https://www.postman.com/downloads/

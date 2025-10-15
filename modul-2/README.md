@@ -1,9 +1,9 @@
-# Modul 2 - Java Script
+# Modul 2 - Java Script & TypeScript
 
 ## 1. JavaScript Basics
 
 JavaScript adalah bahasa pemrograman yang digunakan untuk menambahkan interaksi dan logika ke halaman web.
-Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
+Dalam modul ini, kalian akan mempelajari dasar-dasar JavaScript.
 
 ### 1.1. Menambahkan JavaScript ke HTML
 
@@ -37,6 +37,23 @@ Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
   let name = "Alice"; // variabel yang dapat diubah
   const age = 25; // variabel konstan
   ```
+
+**Permaslaahan Dengan `Var`**
+
+variabel yang dideklarasikan menggunakan `var` akan memiliki scope yang disebut sebagai _function scope_. Dalam javascript, hal ini berarti variabel tersbeut masih bisa diakses di luar blok (`for`, `if`) yang menyebabkan bug lebih susah dilacak.
+
+Contoh:
+```js
+if (true) {
+  var name = "Kelinci";
+}
+console.log(name); // "Kelinci" -> masih bisa diakses
+
+if (true) {
+  let newName = "Alice";
+}
+console.log(newName); // ❌ Error: name is not defined
+```
 
 - **Tipe Data**:
 
@@ -117,7 +134,7 @@ Dalam modul ini, klean akan mempelajari dasar-dasar JavaScript.
 
 ### 1.6. Menggunakan Local Storage
 
-**Local Storage** adalah penyimpanan di browser yang memungkinkan klean menyimpan data secara permanen di sisi klien (hingga dihapus secara manual oleh pengguna).
+**Local Storage** adalah penyimpanan di browser yang memungkinkan kalian menyimpan data secara permanen di sisi klien (hingga dihapus secara manual oleh pengguna).
 
 #### 1.6.1. Menyimpan Data ke Local Storage
 
@@ -159,6 +176,8 @@ Contoh menghapus data:
 localStorage.removeItem("username");
 ```
 
+> removeItem tidak akan mengembalikan error apabila key yang dimasukkan tidak ditemukan
+
 Untuk menghapus semua data yang tersimpan di local storage, gunakan `localStorage.clear()`:
 
 ```javascript
@@ -167,7 +186,7 @@ localStorage.clear();
 
 ## 2. Intermediate JavaScript
 
-Setelah memahami dasar-dasar, klean akan melanjutkan ke konsep yang lebih kompleks.
+Setelah memahami dasar-dasar javascript, kalian akan melanjutkan ke konsep yang lebih kompleks.
 
 ### 2.1. Arrays
 
@@ -180,7 +199,7 @@ Setelah memahami dasar-dasar, klean akan melanjutkan ke konsep yang lebih komple
 - **Manipulasi Array**:
 
   ```javascript
-  fruits.push(🍇); // Menambah elemen
+  fruits.push(🍇); // Menambah elemen di akhir array
   fruits.pop(); // Menghapus elemen terakhir
   ```
 
@@ -295,7 +314,7 @@ content.innerHTML =
 
 #### 2.3.4. DOM Forms
 
-Untuk mengakses dan memanipulasi elemen form seperti `input`, `textarea`, dll., klean bisa menggunakan properti `value`.
+Untuk mengakses dan memanipulasi elemen form seperti `input`, `textarea`, dll., kalian bisa menggunakan properti `value`.
 
 Contoh menangani form:
 
@@ -310,7 +329,7 @@ form.addEventListener("submit", (event) => {
 
 #### 2.3.5. DOM CSS
 
-Untuk mengubah gaya elemen, klean bisa menggunakan properti `style`.
+Untuk mengubah gaya elemen, kalian bisa menggunakan properti `style`.
 
 Contoh:
 
@@ -357,7 +376,7 @@ button.addEventListener("click", () => {
 
 #### 2.3.9. DOM Nodes
 
-Semua elemen di DOM adalah node, dan klean bisa memanipulasinya dengan metode seperti `appendChild`, `removeChild`, atau `replaceChild`.
+Semua elemen di DOM adalah node, dan kalian bisa memanipulasinya dengan metode seperti `appendChild`, `removeChild`, atau `replaceChild`.
 
 Contoh menghapus elemen:
 
@@ -391,7 +410,7 @@ for (let i = 0; i < divs.length; i++) {
 
 ## 3. Advanced JavaScript
 
-Di bagian ini, klean akan mempelajari fitur dan konsep lanjutan dalam JavaScript.
+Di bagian ini, kalian akan mempelajari fitur dan konsep lanjutan dalam JavaScript.
 
 ### 3.1. Asynchronous JavaScript
 
@@ -474,7 +493,7 @@ Fungsi `fetchData` menerima fungsi callback (`handleData`) sebagai argumen, yang
 
 ## 4. Expert JavaScript
 
-Pada level ini, klean akan diberikan topik-topik lanjutan dan praktik JavaScript.
+Pada level ini, kalian akan diberikan topik-topik lanjutan dan praktik JavaScript.
 
 ### 4.1. Functional Programming
 
@@ -490,9 +509,9 @@ Pada level ini, klean akan diberikan topik-topik lanjutan dan praktik JavaScript
 
   ```javascript
   const numbers = [1, 2, 3, 4, 5];
-  const doubled = numbers.map((num) => num * 2);
-  const evenNumbers = numbers.filter((num) => num % 2 === 0);
-  const sum = numbers.reduce((acc, num) => acc + num, 0);
+  const doubled = numbers.map((num) => num * 2);                // [2, 4, 6, 8, 10]
+  const evenNumbers = numbers.filter((num) => num % 2 === 0);   // [2, 4]
+  const sum = numbers.reduce((acc, num) => acc + num, 0);       // 1 + 2 + 3 + 4 + 5 = 15
   ```
 
 ### 4.2. Event Delegation
@@ -581,140 +600,418 @@ Proses Transpilasi kode yang ditulis dalam TypeScript tidak dijalankan langsung 
 
 <img width="339" height="101" alt="image" src="https://github.com/user-attachments/assets/0c1ec5ff-cb61-4f2c-bf2f-c9dce0977cb2" />
 
-#### **Cara Menginstal `Yarn` (Opsional)**
-
-Menginstal Package Manager `Yarn` dapat dilakukan dengan menggunakan perintah dari `NPM`.
-
-- Jalankan command berikut pada terminal:
-
-  ```bash
-  npm install -g yarn
-  ```
-
-  > Catatan: flag `-g` perlu digunakan agar yarn dapat digunakan di lokasi manapun pada komputer kalian.
-
-- Periksa versi yarn menggunakan perintah berikut:
-
-  ```bash
-  yarn -v
-  ```
-
-#### **Cara Menginstal `PNPM` (Opsional)**
-
-Menginstal Package Manager `PNPM` dapat dilakukan dengan menggunakan perintah dari `NPM`.
-
-- Jalankan command berikut pada terminal:
-
-  ```bash
-  npm install -g pnpm
-  ```
-
-  > Catatan: flag `-g` perlu digunakan agar pnpm dapat digunakan di lokasi manapun pada komputer kalian.
-
-- Periksa versi pnpm menggunakan perintah berikut:
-
-  ```bash
-  pnpm -v
-  ```
-
 ### 5.4 **Memulai Proyek 'TypeScript' Pertama🚀**
 
-#### - Install TypeScript secara Global:
-
-Setelah Node.js terpasang, kita bisa install TypeScript menggunakan npm (Node Package Manager). Buka terminal dan jalankan:
-
-```bash
-npm install -g typescript
-```
-
-Perintah -g artinya kita menginstallnya secara global, jadi bisa dipakai di proyek mana pun.
-
-#### 1. Buat Folder Proyek
-
-Pertama, buat sebuah direktori (folder) baru untuk proyekmu dan masuk ke dalamnya.
+#### - Persiapan Proyek
+Pertama, siapkan folder proyek dan install TypeScript sebagai dependency pengembangan. Buka terminal dan jalankan perintah berikut satu per satu:
 
 ```bash
-mkdir proyek-typescript-pertama
-cd proyek-typescript-pertama
-```
+# Membuat dan masuk ke folder proyek
+mkdir proyek-ts
+cd proyek-ts
 
-#### 2. Inisiasi Proyek Node.js
-
-Setiap proyek JavaScript/TypeScript dimulai dengan file package.json. File ini berisi metadata proyek dan daftar dependensi.
-
-```bash
+# Membuat file package.json secara otomatis
 npm init -y
-```
 
-<img width="607" height="302" alt="image" src="https://github.com/user-attachments/assets/f932d3f8-eacb-48e5-95f6-db81e067c6bf" />
-
-Perintah ini akan membuat file package.json dengan konfigurasi default.
-
-#### 3. Instal TypeScript
-
-Selanjutnya, instal TypeScript sebagai development dependency. Ini berarti TypeScript hanya dibutuhkan selama proses pengembangan, bukan saat aplikasi dijalankan di produksi.
-
-```bash
+# Menginstal TypeScript untuk proyek ini
 npm install typescript --save-dev
 ```
-
-#### 4. Buat File Konfigurasi TypeScript
-
-TypeScript menggunakan file tsconfig.json untuk mengelola opsi kompilasi proyek.
-
-```bash
-npx tsc --init
+#### - Menulis Kode
+Selanjutnya, kita akan menulis kode TypeScript. 
+- Buat folder baru bernama src.
+- Di dalam src, buat file baru bernama index.ts.
+- Isi file src/index.ts dengan kode berikut:
 ```
-
-Perintah ini akan membuat file tsconfig.json dengan banyak opsi yang sudah diberi komentar penjelasan. Untuk saat ini, kita bisa menggunakan konfigurasi default.
-
-<img width="341" height="150" alt="image" src="https://github.com/user-attachments/assets/1e444959-79e4-4e3c-9352-16a2e78e1688" />
-
-#### 5. Buat Folder src dan Tulis Kode
-
-Merupakan praktik umum untuk menempatkan semua kode sumber kita di dalam folder src.
-
-- Buat folder src:
-
-```bash
-mkdir src
-```
-
-- Buat file baru di dalam src bernama index.ts.
-  Buka src/index.ts dan tulis kode sederhana berikut:
-
-```TypeScript
-function sapa(nama: string): string {
-  return `Halo, ${nama}! Selamat datang di dunia TypeScript.`;
+function sapa(nama: string) {
+  console.log(`Halo, ${nama}!`);
 }
 
-let pengguna: string = "Programmer";
-
-console.log(sapa(pengguna));
+sapa("Praktikan");
 ```
-
-#### 6. Kompilasi Kode TypeScript
-
-Kode TypeScript (.ts) tidak bisa langsung dijalankan oleh Node.js atau browser. Kita harus mengompilasinya menjadi JavaScript (.js) terlebih dahulu.
-
+### - Kompilasi & Eksekusi
+Terakhir, kita ubah kode TypeScript (.ts) menjadi JavaScript (.js) lalu jalankan.
+- Jalankan perintah ini di terminal untuk mengompilasi file src/index.ts.
 ```bash
-npx tsc
+npx tsc src/index.ts
 ```
+Perintah ini akan membuat file baru bernama index.js di dalam folder src.
 
-Perintah ini akan membaca tsconfig.json, mencari semua file .ts (dalam hal ini src/index.ts), dan mengompilasinya menjadi JavaScript. Secara default, hasilnya akan disimpan di folder dist. Kamu sekarang akan melihat folder baru dist berisi file index.js.
-
-#### 7. Jalankan Kode JavaScript Hasil Kompilasi
-
-Terakhir, jalankan file JavaScript yang sudah jadi menggunakan Node.js.
-
+- Jalankan Program
+Eksekusi file JavaScript hasil kompilasi untuk melihat outputnya.
 ```bash
 node src/index.js
 ```
+Output yang Diharapkan:
+```
+Halo, Praktikan!
+```
 
-Kamu akan melihat output di terminal:
+Selamat! Anda telah berhasil menjalankan program TypeScript pertama Anda.
+
+### 5.5 **Type Annotation di Typescript**
+
+_Type annotation_ merupakan cara kita untuk memberitahu *Typescript* mengenai tipe data dari sebuah variabel, parameter fungsi, serta nilai yang di *return* oleh sebuah fungsi.
+
+#### Primitive Types (string, number, dan boolean)
+
+Adalah tipe data yang paling dasar dan umum digunakan untuk menyimpan teks, angka, dan nilai *boolean* yaitu *true* atau *false*.
+
+```ts
+// Variabel ini HANYA boleh berisi teks (string)
+let text: string = 'Hello World!'
+
+// Variabel ini HANYA boleh berisi angka (number)
+let num: number = 58.0
+
+// Variabel ini HANYA boleh berisi nilai benar atau salah (boolean)
+let isTrue: boolean = false
+```
+
+#### Arrays
+
+Untuk mendefinisikan sebuah array, kita dapat menyisipkan `[]` setelah nama tipenya. 
+```ts
+// Variabel ini HANYA boleh berisi kumpulan teks (string)
+let colorArray: string[] = ["Red", "Green", "Blue"]
+
+// Variabel ini HANYA boleh berisi kumpulan angka (number)
+let numberArray: number[] = [1, 3, 5, 6, 9]
+
+// Variabel ini HANYA boleh berisi kumpulan boolean
+let booleanArray: boolean[] = [true, false, true, false]
+```
+
+### Any
+
+Dengan menggunakan `any`, nantinya sebuah variabel dapat diisi dengan tipe data apapun dan dapat dioperasikan sesuai preferensi kita.
+
+>⚠️ Gunakan tipe data ini dengan hati-hati, karena penggunannya akan menghilangkan pengecekan tipe data pada variabel yang merupakan fitur utama dari *Typescript*.
+
+```ts
+// 'obj' bisa diisi dan diubah menjadi apa saja tanpa error
+let obj: any = { count: 0 };
+
+obj.foo();
+obj();
+obj.bar = 100;
+obj = "hello";
+```
+
+#### Function
+
+*Type annotation* dalam sebuah _function_ digunakan untuk mendeklarasikan tipe data untuk parameter atau input dari sebuah tersebut serta nilai yang di *return* oleh sebuah fungsi.
+
+#### Parameter Type Annotation
+
+```ts
+// Fungsi ini hanya menerima parameter 'name' yang bertipe string
+function greet(name: string) {
+	console.log(`Hello ${name.toUpperCase()}! How are you?`)
+}
+
+greet("John Doe"); // Benar
+// greet(123); // Akan menjadi error karena 123 bukan string
+```
+
+#### Return Type Annotation
+
+```ts
+// Fungsi ini PASTI akan selalu me-return nilai boolean
+function isNight(): boolean {
+	return true
+}
+```
+
+### Object
+
+Untuk objek, *type annotation* dapat dilakukan dengan mendefinisikan "bentuk" atau struktur objeknya dengan mendefinisikan properti apa saja yang ada di dalamnya beserta tipe datanya.
+
+#### Variable Annotation
+```ts
+// Variabel user dengan properti 'name' (string) dan 'age' (number)
+const user: { name: string, age: number } = {
+	name: "John Doe",
+	age: 25
+}
+```
+
+#### Function Annotation
+
+```ts
+// Fungsi ini hanya menerima objek dengan struktur { lat: number, lng: number }
+function showCoord(coord: { lat: number, lng: number }) {
+	console.log("Latitude: ": coord.lat)
+	console.log("Latitude: ": coord.lng)
+} 
+
+showCoord({ lat: 37.272011, lng: -115.815498 })
+```
+
+**Optional Properties**
+
+Terkadang, sebuah properti dalam objek tidak wajib ada. Untuk itu, kita dapat menandainya sebagai properti yang **opsional** dengan menambahkan `?` (tanda tanya) setelah nama properti.
+
+```ts
+// Properti 'last' tidak wajib diisi karena ada tanda '?'
+function showFullName(user: { first: string, last?: string }) {
+	// Karena 'last' opsional, bisa jadi nilainya undefined
+	console.log(`Full name: ${user.first} ${user.last}`)
+}
+
+showFullName({ first: "John" })
+showFullName({ first: "John", last: "Doe" })
+```
+
+### 5.6 **Fitur Lain di Typescript**
+
+#### Union
+
+Memungkinkan sebuah variabel atau parameter untuk dapat memiliki **lebih dari satu** kemungkinan tipe data. Untuk mendeklarasikan *union type*, kita dapat menggunakan tanda `|` untuk memisahkan tipe data yang digunakan.
+
+```ts
+function showUserId(id: string | number) {
+	console.log("User ID: ", id)
+}
+
+showUserId("ff1a33c0-e73c-4f45-a894-42ee86115a12")
+showUserId(482)
+```
+
+**Penanganan Union Types**
+
+Masalah umum yang terjadi dalam penggunaan *union types* adalah ketika ingin menggunakan *methods* spesifik dari salah satu tipe data yang digunakan. Berikut contoh kodenya:
+
+```ts
+function showUserId(id: string | number) {
+	console.log("User ID: ", id.toUpperCase())
+}
+
+showUserId(482)
+```
+
+Kode tersebut akan menghasilkan error:
 
 ```bash
-Halo, Programmer! Selamat datang di dunia TypeScript.
+Property 'toUpperCase' does not exist on type 'string | number'.
+	Property 'toUpperCase' does not exist on type 'number'.
+```
+
+Error tersebut terjadi karena *method* `toUpperCase()` tidak terdapat pada tipe data `number`. yang mana dalam *case* tersebut, compiler tidak mengetahui apakah `id` bertipe `string` atau `number`. Untuk itu, kita dapat melakukan *type checking* terlebih dahulu sebelum menggunakan sebuah `method` seperti pada kode berikut:
+
+```ts
+function showUserId(id: string | number) {
+	if (typeof id === "string") {
+		console.log("User ID: ", id.toUpperCase())
+	} else {
+		console.log("User ID: ", id)
+	}
+}
+
+showUserId(482)
+```
+
+Contoh lain misalnya untuk menangani parameter dengan tipe *string* dan *array string* dapat dilihat pada kode berikut:
+
+```ts
+function welcomePeople(value: string[] | string) {
+	if (Array.isArray(value)) {
+		// Disini, "value" bertipe string array (string[])
+		console.log("Hello, " + x.join(" and "));
+	} else {
+		// Disini, "value" bertipe string
+		console.log("Welcome lone traveler " + x);
+	}
+}
+```
+
+#### Type Alias
+
+Merupakan cara kita untuk memberi sebuah **nama panggilan** pada sebuah tipe data, terutama untuk tipe data yang kompleks seperti objek. Tujuannya adalah agar kode lebih mudah dibaca dan dapat digunakan kembali (*reusable*).
+
+```ts
+type Location = {
+	name: string
+	address: string
+	coordinate: {
+		lat: number
+		lng: number
+	}
+}
+
+function showAddress(loc: Location) {
+	console.log("Name: ", loc.name)
+	console.log("Address: ", loc.address)
+	console.log("Coordinate: ", loc.coordinate)
+}
+
+showAddress({ name: "Gedung X", address: "Jl. Patimura No. 15", coordinate: { lat: 37.272011, lng: -115.815498 }})
+```
+
+#### Interfaces
+
+Merupakan cara lain untuk mendefinisikan bentuk atau `blueprint` dari suatu objek. Fungsinya sangat mirip dengan `type alias` akan tetapi dengan beberapa perbedaan.
+
+```ts
+interface Product {
+    name: string;
+    price: number;
+    isAvailable: boolean;
+}
+
+function showProduct(product: Product) {
+    console.log(`Produk: ${product.name}, Harga: Rp${product.price}`);
+}
+
+showProduct({ name: "Buku TypeScript", price: 150000, isAvailable: true });
+```
+
+**Perbedaan Interface dan Type Alias**
+
+Meskipun secara deklarasi dan penggunaan terlihat sama, keduanya mempunyai beberapa perbedaan:
+
+- ***Extending***: `interface` bisa di *extend* oleh `interface` lain, seperti konsep `inheritance` atau pewarisan dalam `OOP`. `type alias` sebenarnya dapat melakukan hal yang serupa dengan *intersection* `&`, akan tetapi untuk keperluan *extend*, interface lebih baik dari segi *syntaks*. Berikut adalah contoh dari konsep **extending**:
+
+	```ts
+	interface BaseObject {
+		name: string
+		address: string
+	}
+
+	interface ExtendedObject extends BaseObject {
+		type: "HOME" | "OFFICE"
+	}
+
+	// VS
+
+	type BaseObject = {
+		name: string
+		address: string
+	}
+
+	type ExtendedObject = BaseObject & {
+		type: "HOME" | "OFFICE"
+	}
+	```
+
+- ***Declaration Merging***: Ketika kita mendefinisikan `interface` dengan nama yang sama lebih dari sekali, *Typescript* akan menggabungkannya menjadi satu. Sementara itu, `type alias` tidak bisa melakukan hal ini. Berikut adalah contoh dari konsep **declaration merging**:
+
+	```ts
+	interface Room {
+		name: string
+		num: number
+	}
+	
+	interface Room {
+		floor: number
+	}
+	
+	// Pada akhirnya, Room akan menjadi:
+	interface Room {
+		name: string
+		num: number
+		floor: number
+	}
+	```
+
+#### Type Assertions
+
+Type assertions* bukanlah sebuah tipe data, melainkan hanya sebuah petunjuk untuk *Typescript* agar memperlakukan sebuah *value* sebagai tipe yang berbeda. Hal ini berguna ketika *Typescript* tidak memiliki cukup informasi untuk mengetahui tipe data yang sebenarnya, contohnya saat mengambil elemen dari DOM.
+
+```ts
+// TypeScript hanya tahu ini adalah HTMLElement secara umum
+const myCanvas = document.getElementById("main_canvas");
+
+// Kita tahu ini adalah elemen canvas, jadi kita beri tahu TypeScript
+const myCanvasAsserted = document.getElementById("main_canvas") as HTMLCanvasElement;
+// Sekarang kita bisa mengakses properti spesifik canvas seperti .getContext() tanpa error
+
+// Ada juga sintaks lain (kurung sudut), tapi 'as' lebih umum digunakan
+const myCanvasAsserted2 = <HTMLCanvasElement>document.getElementById("main_canvas");
+```
+
+> ⚠️ Penggunaan *type assertions* akan menonaktifkan pemeriksaan tipe. Jika salah memberikan tipe, misalnya elemen tersebut sebenarnya bukan *canvas*, maka kode akan *error* saat dijalankan di browser, bukan saat proses *compile* .
+
+#### Literal Types
+
+Memungkinkan kita untuk mendefinisikan tipe yang hanya bisa berisi satu nilai spesifik.
+
+```ts
+let responseStatus: "success";
+
+responseStatus = "success"; // OK
+// responseStatus = "error"; // Akan terjadi error karena tipe 'string' "error" tidak bisa diassign ke tipe '"success"'.
+```
+
+*Literal types* sendiri umumnya digunakan bersama dengan *union types*: 
+
+```ts
+// Variabel ini hanya boleh berisi salah satu dari tiga string spesifik ini
+let trafficLight: "red" | "yellow" | "green";
+
+trafficLight = "yellow"; // OK
+trafficLight = "red"; // OK
+// trafficLight = "blue"; // Akan terjadi error
+```
+
+Penggunaan *literal types* sangat berguna untuk mencegah kesalahan pengetikan dan membatasi *value* yang mungkin digunakan untuk sebuah variabel.
+
+#### null dan undefined
+
+Dalam *Typescript*, `null` (tidak ada nilai) dan `undefined` (variabel belum diinisialisasi) menjadi tipe data tersendiri. Secara *default*, proyek *Typescript* modern cukup *strict* dengan tipe *null* dan *undefined*. 
+
+```ts
+let nama: string = "Budi";
+// nama = null; // Error! Tipe 'null' tidak bisa diassign ke tipe 'string'.
+
+// Jika sebuah variabel memang bisa bernilai null, tipe 'null' harus didefinisikan
+let namaOrNull: string | null = "Andi";
+namaOrNull = null; // OK
+```
+
+#### Enums
+
+Merupakan cara untuk mendefinisikan sekumpulan nilai *constant*. Penggunaan *enum* bermanfaat untuk mencegah string yang salah ketik.
+
+**Numeric Enums**
+
+Secara *default*, *enum* akan memberikan nilai angka yang dimulai dari 0.
+
+```ts
+enum Direction {
+    Up,    // bernilai 0
+    Down,  // bernilai 1
+    Left,  // bernilai 2
+    Right  // bernilai 3
+}
+
+let playerDirection: Direction = Direction.Up;
+
+if (playerDirection === Direction.Up) {
+	// Lebih mudah dibaca daripada if (playerDirection === 0)
+    console.log("Pemain bergerak ke atas!");
+}
+```
+
+**String Enums**
+
+Untuk mempermudah proses *debugging*, kita dapat menggunakan *string enum*.
+
+```ts
+enum HttpStatus {
+    OK = "OK",
+    NotFound = "NOT_FOUND",
+    InternalServerError = "INTERNAL_SERVER_ERROR",
+}
+
+function handleResponse(status: HttpStatus) {
+    if (status === HttpStatus.OK) {
+        console.log("Respons berhasil!");
+    } else if (status === HttpStatus.NotFound) {
+        console.log("Data tidak ditemukan.");
+    }
+}
+
+handleResponse(HttpStatus.OK);
 ```
 
 ### 5.7 **Contoh Website Sederhana dengan TypeScript**
@@ -724,3 +1021,193 @@ Kalian bisa lihat contoh project sederhana menggunakan TypeScript pada website b
 Sebagai referensi, kalian bisa lihat source codenya pada repository berikut: [TypeScript Calculator Repository](https://github.com/harvdt/ts-js-website/tree/main/ts)
 
 Di situ kalian juga bisa melihat perbedaan penggunaan type safety pada TypeScript dibandingkan dengan JavaScript biasa. Berikut adalah website JavaScript: [JavaScript Calculator Website](https://ts-js-website.netlify.app/js/)
+
+### 5.8 **Best Practice TypeScript**
+
+Pengaplikasian TypeScript sangat membantu dalam pengerjaan proyek, terutama yang berskala besar. Namun apabila diterapkan dengan ala kadarnya, dapat membuat setiap orang yang bekerja dalam proyek tersebut kebingungan.
+
+![ts-any-meme](./images/ts-any.jpg)
+
+**TypeScript bertujuan untuk mempermudah developer dalam mengembangkan aplikasi JavaScript, bukan memperumit.**
+
+Untuk itu, kalian bisa manfaatkan sedikit contoh best practice di bawah ini agar aplikasi kalian mudah dipahami oleh orang lain.
+
+1. **Definisikan type di file terpisah**
+
+Mencampurkan terlalu banyak `Type` atau `Interface` dalam satu file, terlebih pada file yang sama dengan _function_ dapat membuat file lebih susah dirawat (maintain).
+
+![no-import](./images/no-import.png)
+
+> Butuh 20 baris hanya untuk mendefinisikan interface yang akan digunakan, boros baris :(
+
+Akan lebih baik apabila `Type` dan `Interface` diletakkan pada sebuah folder khusus yang berisi semua definisi tipe.
+
+**Contoh Struktur Folder:**
+
+```conf
+my_ts/
+ ┃
+ ┣ interfaces/            // Folder Interfaces
+ ┃ ┗ animal.interface.ts
+ ┃ ┗ post.interface.ts
+ ┃ ┗ user.interface.ts
+ ┃
+ ┗ tes-bentar.ts          // File Function
+```
+
+![folder-no-index](./images/folder-no-index.png)
+
+Impor semua yang akan digunakan pada masing - masing file .interface
+
+`animal.interface.ts`
+```ts
+export interface Animal {
+  species: string;
+  legs: number;
+  can_fly: boolean;
+  can_swim: boolean;
+}
+```
+
+`post.interface.ts`
+```ts
+export interface Post {
+  creator: string;
+  title: string;
+  description: string;
+  total_click: number;
+}
+```
+
+`user.interface.ts`
+```ts
+export interface User {
+  name: string;
+  age: number;
+  address: string;
+  is_old: boolean;
+}
+```
+
+**Hasil Akhir:**
+
+Pada akhirnya kalian akan mendapat seperti ini pada file function kalian,
+
+![import-1](./images/import-1.png)
+
+**Perbandingan**
+
+![import-comparison](./images/import-comparison.jpg)
+
+2. **Terlalu banyak yang diimpor? Gunakan `index.ts`**
+
+Dari contoh sebelumnya, terlihat bahwa kita masih harus mengimpor setiap file satu persatu. Untuk memudahkan impor, kita bisa menambahkan file `index.ts` pada folder `interfaces`.
+
+![folder-with-index](./images/folder-with-index.png)
+
+`index.ts`
+```ts
+export * from './animal.interface';
+export * from './post.interface';
+export * from './user.interface';
+```
+
+**Hasil Akhir**
+
+![import-2](./images/import-2-crop.png)
+
+3. **Manfaatkan Type Manupulation**
+
+TypeScript menyediakan berbagai utility types yang dapat membantu developer dalam menulis kode yang fleksibel dan tidak repetitif
+
+   1. **Generics**
+   
+   Generics memungkinkan kita membuat Tipe Dinamis untuk digunakan dalam kasus yang bervariasi.
+
+   ```ts
+function identity<T>(value: T): T {
+  return value;
+}
+
+const str = identity<string>("Hello"); // str: string
+const num = identity(123);             // num: number (infer otomatis)
+   ```
+
+   2. **Partial**
+   
+   `Partial<T>` berarti seluruh properti pada tipedata `T` akan diubah menjadi opsional
+
+   ```ts
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+// Apabila terdapat variabel dengan tipedata partial dari User
+
+type KindaUser = Partial<User>;
+
+// Maka tipedatanya sama saja seperti:
+
+interface KindaUser {
+  id?: number;
+  name?: string;
+  email?: string;
+}
+   ```
+
+   Contoh Lain:
+
+   ```ts
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+function updateUser(id: number, data: Partial<User>) {
+  // data bisa hanya berisi sebagian field
+}
+
+updateUser(1, { name: "New Name" }); // Tidak perlu memasukkan id dan email
+   ```
+   
+   3. **Pick**
+   
+   `Pick<T, K>` membuat tipe baru hanya dengan memilih beberapa properti dari tipe asal.
+
+   ```ts
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+}
+
+type UserProfile = Pick<User, "id" | "name" | "email">;
+
+const profile: UserProfile = {
+  id: 1,
+  name: "Jone",
+  email: "jone@doe.com",
+};
+   ```
+   
+   4. **Omit**
+   
+   `Omit<T, K>` adalah kebalikan dari `Pick`, Omit akan membuat tipe baru dengan menghapus properti tertentu.
+
+   ```ts
+type UserWithoutPassword = Omit<User, "password">;
+
+const user: UserWithoutPassword = {
+  id: 1,
+  name: "Alibaba",
+  email: "ali@baba.com",
+};
+   ```
+
+Dokumentasi lengkap terkait dengan _Type Manipulation_ terdapat pada situs resmi TypeScript. [Klik untuk Akses](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html)
+
+Happy Coding!
