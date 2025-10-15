@@ -749,6 +749,25 @@ Buka browser dan akses `localhost` sesuai dengan `PORT` masing-masing
 
 ---
 
+## Cara menghubungkan Prisma + Express dengan Neon Database
+
+1. Pastikan sudah memiliki akun Neon dan Login
+2. Buat project baru pada Neon database ![Buat project baru](./images/make-new-neon-project.png)
+3. Klik 'Connect' pada Card Connect to your database ![Connect to your database](./images/connect-to-database.png)
+4. Salin connection string yang diberikan. Ambil bagian 'postgresql://.....' ![Connection String](./images/connection-string.png)
+5. Masukkan pada .env sebagai database URL 
+  ```env
+  DATABASE_URL="postgresql://....."
+  ```
+6. Jalankan migrasi prisma ke database dengan perintah berikut:
+  ```bash
+  npx prisma migrate dev --name init
+  ```
+7. Jika berhasil, maka database pada Neon sudah terhubung dengan project Express + Prisma kalian. Cek apakah tabel database sudah terbuat atau belum pada Neon Dashboard
+  ![Check tabel pada Neon](./images/check-table-neon.png)
+
+---
+
 ## CRUD Menggunakan Prisma
 
 ### Struktur Folder Project
