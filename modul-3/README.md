@@ -1375,7 +1375,145 @@ process.on('SIGINT', async () => {
 ```
 ### Filtering & Pagination
 
-lorem
+#### Filtering 
+Filtering digunakan untuk menyaring data berdasarkan kondisi tertentu sebelum dikembalikan dari database. Prisma menyediakan parameter where yang sangat fleksibel, mirip seperti klausa WHERE pada SQL.
+
+Contoh saat ingin mengambil semua post yang sudah dipublish:
+```typescript
+const publishedPosts = await prisma.post.findMany({
+  where: {
+    published: true,
+  },
+});
+```
+
+Atau mengambil user dengan nama yang mengandung kata “budi”:
+```typescript
+const filteredUsers = await prisma.user.findMany({
+  where: {
+    name: {
+      contains: 'budi',
+      mode: 'insensitive', // agar tidak case-sensitive
+    },
+  },
+});
+```
+mode: 'insensitive' membuat pencarian tidak membedakan huruf besar dan kecil (case-insensitive).
+Misalnya pencarian “budi” akan cocok dengan “Budi”, “BUdi”, atau “bUDI”.
+
+Contoh Filtering dengan Beberapa Kondisi (AND, OR, NOT): 
+```typescript
+const complexFilter = await prisma.post.findMany({
+  where: {
+    AND: [
+      { published: true },
+      { title: { contains: 'tutorial' } },
+    ],
+  },
+});
+```
+
+```typescript
+const posts = await prisma.post.findMany({
+  where: {
+    OR: [
+      { title: { contains: 'AI' } },
+      { title: { contains: 'Machine Learning' } },
+    ],
+    NOT: { authorId: 1 },
+  },
+});
+```
+
+Bisa juga menerapkan filtering berdasarkan relasi, contohnya menampilkan semua post dari user dengan email tertentu:
+```typescript
+const postsByEmail = await prisma.post.findMany({
+  where: {
+    author: {
+      email: 'budi@santoso.id',
+    },
+  },
+});
+```
+
+#### Pagination 
+Pagination digunakan untuk mengatur jumlah data yang ditampilkan per halaman. Prisma menyediakan dua properti utama:
+- skip: untuk melewati sejumlah data
+- take: untuk menentukan berapa banyak data yang diambil
+
+Contoh jika ingin mengambil 10 post per halaman:
+```typescript
+const page = Number(req.query.page) || 1; // halaman saat ini
+const limit = Number(req.query.limit) || 10; // jumlah per halaman
+
+const posts = await prisma.post.findMany({
+  skip: (page - 1) * limit,
+  take: limit,
+  orderBy: {
+    createdAt: 'desc',
+  },
+});
+```
+
+Lalu mengembalikan hasil dan info pagination ke client:
+```typescript
+const totalPosts = await prisma.post.count();
+
+res.json({
+  message: 'Berhasil mengambil data posts dengan pagination',
+  currentPage: page,
+  totalPages: Math.ceil(totalPosts / limit),
+  totalPosts,
+  data: posts,
+});
+```
+
+#### Filtering + Pagination 
+Filtering dan pagination bisa dikombinasikan agar lebih dinamis. Misalnya client ingin mencari post yang mengandung kata “eco” pada judulnya, dengan pagination:
+```typescript
+const { page = 1, limit = 5, search = '' } = req.query;
+
+const posts = await prisma.post.findMany({
+  where: {
+    title: {
+      contains: search as string,
+      mode: 'insensitive',
+    },
+  },
+  skip: (Number(page) - 1) * Number(limit),
+  take: Number(limit),
+  orderBy: {
+    createdAt: 'desc',
+  },
+  include: {
+    author: {
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    },
+  },
+});
+
+const total = await prisma.post.count({
+  where: {
+    title: {
+      contains: search as string,
+      mode: 'insensitive',
+    },
+  },
+});
+
+res.json({
+  message: 'Berhasil mengambil data posts dengan filter & pagination',
+  currentPage: Number(page),
+  totalPages: Math.ceil(total / Number(limit)),
+  totalPosts: total,
+  data: posts,
+});
+```
+Contoh ini sangat cocok diletakkan di controller getAllPosts, menggantikan query statis agar lebih fleksibel untuk pencarian dan pagination dari frontend.
 
 ### Aggregate function
 
