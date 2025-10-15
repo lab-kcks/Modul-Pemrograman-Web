@@ -1299,13 +1299,124 @@ lorem
 
 lorem
 
-### Transaction & Batch Queries
+### Batch Queries & Transaction
 
-lorem
+Transaction merupakan sebuah rangkaian query yang dieksekusi sebagai satu kesatuan logis. Hal ini berarti semua perintah dalam satu transaction harus berhasil seluruhnya, jika tidak maka tidak ada perintah yang akan dieksekusi.
+
+Pada Prisma, beberapa fungsi berikut menggunakan transaction dalam prosesnya,
+
+- Nested writes
+- Batch / Bulk Writes
+- `$transaction`
+
+#### Nested Writes
+
+Nested write memungkinkan untuk melakukan beberapa operasi yang memiliki target beberapa record pada database. Misalkan membuat beberapa postingan di saat membuat record user baru. Prisma akan memastikan semua operasi tersebut sukses atau gagal seluruhnya (Record tidak akan memungkinkan untuk setengah terbuat).
+
+Contoh (Membuat beberapa post saat membuat user):
+```typescript
+const newUser: User = await prisma.user.create({
+  data: {
+    email: 'budi@santoso.id',
+    posts: {
+      create: [
+        { title: 'Judul Post 1' },
+        { title: 'Judul Post 2' },
+      ],
+    },
+  },
+})
+```
+
+#### Batch / Bulk Writes
+
+Bulk Write memungkinkan untuk menulis record dengan tipe yang sama dalam satu transaction. Untuk lebih jelasnya, perhatikan beberapa fungsi berikut:
+
+- `createMany()`
+- `createManyAndReturn()`
+- `updateMany()`
+- `updateManyAndReturn()`
+- `deleteMany()`
+
+Misalkan kita ingin memperbarui semua harga buku dari author dengan id 5, maka kita dapat menuliskannya secara langsung dengan memanfaatkan fungsi `updateMany()`
+
+```typescript
+await prisma.book.updateMany({
+  where: {
+    author: {
+      id: 5,
+    }
+  },
+  data: {
+    price: {
+      increment: 1000
+    },
+  },
+});
+```
+
+Fungsi di atas akan mengembalikan value dengan tipe `number`, karena fungsi `updateMany()` tidak mengembalikan data, melainkan jumlah record yang ter-update.
+
+Apabila ingin mengembalikan data pula, gunakan fungsi `updateManyAndReturn()`
+
+#### `$transaction`
+
+fungsi `$transaction` memungkinkan untuk menjalankan beberapa fungsi prisma sekaligus dalam satu query, yang berarti mengurangi waktu eksekusi.
+
+Untuk lebih jelasnya, perhatikan fungsi berikut. Fungsi ini bertujuan untuk dua hal, yaitu mengembalikan semua post yang memiliki kata `kucing` pada judulnya dan menghitung jumlah post yang ada pada database.
+
+```typescript
+const [posts, totalPosts] = await prisma.$transaction([
+  prisma.post.findMany({ where: { title: { contains: 'kucing' } } }),
+  prisma.post.count(),
+]);
+```
+
+#### Penjelasan Lebih Lengkap
+
+Untuk penjelasan lebih lengkap terkait transaction pada Prisma, silahkan gunakan [Dokumentasi Resmi Prisma](https://www.prisma.io/docs/orm/prisma-client/queries/transactions)
 
 ### Raw Query menggunakan Prisma
 
-lorem
+Prisma menyediakan beberapa fungsi yang dapat digunakan untuk mengeksekusi query raw.
+
+- `$queryRaw` Mengembalikan value berupa record database yang diperoleh
+- `$executeRaw` Mengembalikan value berupa jumlah row yang terpengaruh
+- `$queryRawUnsafe` Mengembalikan value berupa record database yang diperoleh, namun dalam bentuk string
+- `$executeRawUnsafe` Mengembalikan value berupa jumlah row yang terpengaruh, namun dalam bentuk string
+
+Untuk menjalankan query raw, cukup masukkan query sql yang akan dieksekusi ke dalam fungsi dengan bentuk string
+
+```typescript
+import { User } from "@prisma/client";
+
+const result = await prisma.$queryRaw<User[]>`SELECT * FROM User`;
+
+// result akan memiliki tipedata User[]
+```
+
+Perlu diperhatikan bahwa variabel tidak dapat digunakan dalam string literal SQL.
+
+Fungsi berikut tidak akan mencari nilai string `Ini Budi bukan Buni` melainkan `Ini  bukan Buni`
+
+```typescript
+const name = "Budi";
+await prisma.$queryRaw`SELECT 'Ini ${name} bukan Buni';`;
+```
+
+Sebagai alternatifnya, jadikan seluruh string sebagai variabel
+
+```typescript
+const name = "Ini Budi bukan Buni";
+await prisma.$queryRaw`SELECT ${name};`;
+```
+
+atau gunakan fungsi concat string pada SQL
+
+```typescript
+const name = "Bob";
+await prisma.$queryRaw`SELECT 'Ini ' || ${name} || ' bukan Buni';`;
+```
 
 ## Referensi
 
@@ -1322,4 +1433,6 @@ lorem
 - Berikut link download Postman untuk melakukan testing API (sangat disarankan dan sangat membantu)
   https://www.postman.com/downloads/
 
-- Atau apabila tidak ingin mendownload, gunakan Hoppscotch https://hoppscotch.io/ atau apidog https://apidog.com/api-doc/
+- Alternatif lainnya bisa mengggunakan APIDog https://apidog.com/api-doc/
+
+- Atau apabila tidak ingin mendownload, gunakan Hoppscotch https://hoppscotch.io/
