@@ -520,17 +520,70 @@ Response yang baik berarti memiliki informasi yang lengkap dan mudah untuk dibac
 
 ## PostgreSQL
 
+PostgreSQL (biasa disebut Posgres) merupakan sistem manajemen basis data relasional (RDBMS) berbasis open-source yang mendukung fitur - fitur lanjutan dibandingkan dengan database SQL pada umumnya.
+
+Posgres memiliki beberapa keunggulan diantaranya,
+
+- Transaksi ACID Compliance (Atomicity, Consistency, Isolation, Durability). [Selengkapnya tentang AICD](https://www.mongodb.com/resources/products/capabilities/acid-compliance)
+- Mendukung ekstensi [JSONB](https://www.geeksforgeeks.org/postgresql/what-is-jsonb-in-postgresql/)
+- High Performance, Skalabilitas tinggi, dan Relatif lebih aman dibandingkan dengan database SQL lainnya.
+
+> PostgreSQL sering digunakan dalam aplikasi besar seperti Instagram, Spotify, Reddit, dan Discord
+
+### PostgreSQL VS MySQL
+
+| Fitur                       | **PostgreSQL**                                         | **MySQL**                                     |
+| --------------------------- | ------------------------------------------------------ | --------------------------------------------- |
+| **Lisensi**                 | Open Source (PostgreSQL License)                       | Open Source (GPL, dimiliki Oracle)            |
+| **Kepatuhan SQL Standar**   | Sangat tinggi                                          | Cukup baik, tapi beberapa fitur tidak standar |
+| **Dukungan JSON**           | JSON & JSONB (sangat kuat)                             | JSON biasa (terbatas)                         |
+| **Transaksi & Concurrency** | MVCC (Multi-Version Concurrency Control) sangat stabil | Cukup baik, tapi tergantung engine (InnoDB)   |
+| **Kinerja (Write-heavy)**   | Lebih kuat untuk transaksi besar                       | Lebih cepat untuk query sederhana             |
+| **Ekstensi & Kustomisasi**  | Mendukung ekstensi (misal: PostGIS)                    | Kurang fleksibel                              |
+| **Penggunaan umum**         | Aplikasi kompleks & analitik                           | Aplikasi web ringan-menengah                  |
+
 ## Neon Database
+
+Neon Database merupakan layanan cloud yang menyediakan layanan database PostgreSQL berbasis cloud. Neon juga menyediakan plan gratis sebesar `500 MB` sehingga memungkinkan agar praktikum ini dijalankan tanpa harus mengunduh postgres secara local dahulu.
+
+![neon-price](./images/neon-price.png)
+
+### Cara membuat akun Neon
+
+1. Masuk ke [neon.com](neon.com)
+2. Buat akun baru, dapat menggunakan akun google, github, microsoft, atau opsi lainnya.
+![neon-register](./images/neon-register.png)
+3. Atur nama project dan region kalian. Disarankan untuk memilih region Singapore agar tidak terkena latensi yang terlalu besar
+![neon-region](./images/neon-region.png)
+4. Berikut adalah tampilan dashboard neon setelah selesai melakukan registrasi
+![neon-dashbaord](./images/neon-dashboard.png)
+5. Klik tombol `Connect` pada bagian kanan atas, lalu salin dan simpan `connection string`-nya
+![neon-connect](./images/neon-connect.png)
+6. Perlu diingat bahwa Layanan database gratis neon hanya terbatas pada ukuran `500 MB`, jadi jangan sampai database kalian terlalu berat ya...
 
 ## Prisma ORM
 
 ### Pendahuluan
 
-lorem
+Prisma adalah salah satu library ORM (Object-Relational Mapping) untuk Node.js dan TypeScript yang berfungsi sebagai penghubung antara kode JavaScript dengan database relasional seperti PostgreSQL, MySQL, dan SQLite.
+
+Dengan Prisma, kita tidak perlu menulis query SQL secara manual, cukup menggunakan model dan query berbasis objek.
 
 ### Mengapa Menggunakan Prisma ORM?
 
-lorem
+Perhatikan perbandingan kdoe berikut:
+
+```typescript
+const result = await client.query("SELECT * FROM users WHERE id = $1", [id]);
+```
+
+```typescript
+const user = await prisma.user.findUnique({
+  where: { id: id },
+});
+```
+
+Tidak hanya Prisma mampu memudahkan kita dalam mengambil record dari database, namun penggunaan ORM juga dapat meningkatkan keamanan kode kita agar terhindar dari beberapa kerentanan seperti SQL Injection
 
 ## Inisiasi Prisma pada Express
 
@@ -1414,7 +1467,7 @@ await prisma.$queryRaw`SELECT ${name};`;
 atau gunakan fungsi concat string pada SQL
 
 ```typescript
-const name = "Bob";
+const name = "Budi";
 await prisma.$queryRaw`SELECT 'Ini ' || ${name} || ' bukan Buni';`;
 ```
 
