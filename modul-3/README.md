@@ -571,7 +571,7 @@ Dengan Prisma, kita tidak perlu menulis query SQL secara manual, cukup menggunak
 
 ### Mengapa Menggunakan Prisma ORM?
 
-Perhatikan perbandingan kdoe berikut:
+Perhatikan perbandingan kode berikut:
 
 ```typescript
 const result = await client.query("SELECT * FROM users WHERE id = $1", [id]);
@@ -584,6 +584,12 @@ const user = await prisma.user.findUnique({
 ```
 
 Tidak hanya Prisma mampu memudahkan kita dalam mengambil record dari database, namun penggunaan ORM juga dapat meningkatkan keamanan kode kita agar terhindar dari beberapa kerentanan seperti SQL Injection
+
+### Komponen Utama Prisma
+Ekosistem Prisma terdiri dari tiga komponen utama:
+1. **Prisma Schema** : *schema.prisma* Tempat mendefinisikan model data aplikasi. single source of truth untuk skema database.
+2. **Prisma Client** : Query builder yang di-generate secara otomatis dan type-safe berdasarkan skema. Inilah yang akan digunakan untuk membaca dan menulis data.
+3. **Prisma Migrate** : Alat migrasi database yang secara otomatis membuat file migrasi SQL berdasarkan perubahan pada Prisma Schema, dan menjaga skema database tetap sinkron dengan model data.
 
 ## Inisiasi Prisma pada Express
 
@@ -686,6 +692,10 @@ Perintah ini akan:
 
 ```bash
 npx prisma generate
+```
+Prisma menyediakan alat visual bernama Prisma Studio yang dapat digunakan untuk melihat dan mengedit data di database web interface. Untuk menjalankannya, gunakan:
+```bash
+npx prisma studio
 ```
 
 ### 7. Setup Prisma Client di Project
