@@ -1391,13 +1391,13 @@ Prisma menyediakan fungsi bawaan seperti:
 | `_max`   | Nilai maksimum             |
 
 Contoh 1 : Menghitung Total User
-```
+```typescript
 const totalUsers = await prisma.user.count();
 console.log(`Total User: ${totalUsers}`);
 ```
 
 Contoh 2 : Aggregate Lengkap
-```
+```typescript
 const result = await prisma.post.aggregate({
   _count: { id: true },
   _avg: { authorId: true },
@@ -1419,7 +1419,7 @@ Menghasilkan object berisi jumlah post, rata-rata authorId, waktu paling awal, d
 ##### Group By
 groupBy digunakan untuk mengelompokkan data berdasarkan kolom tertentu dan melakukan agregasi di tiap grup.
 Contoh : Menghitung Jumlah Post per Author
-````
+```typescript
 const groupedPosts = await prisma.post.groupBy({
   by: ['authorId'],
   _count: { id: true },
@@ -1442,7 +1442,7 @@ Menghasilkan daftar jumlah postingan dari tiap penulis (authorId). Contoh Output
 Anda juga bisa menggabungkan aggregate dengan where untuk perhitungan bersyarat.
 
 Contoh : Menghitung Jumlah Post yang Sudah Dipublish
-```
+```typescript
 const totalPublished = await prisma.post.count({
   where: {
     published: true,
@@ -1452,7 +1452,7 @@ console.log(`Jumlah post yang sudah dipublish: ${totalPublished}`);
 ```
 
 Contoh : Mengambil Statistik Berdasarkan Tanggal
-```
+```typescript
 const dailyStats = await prisma.post.groupBy({
   by: ['createdAt'],
   _count: { id: true },
