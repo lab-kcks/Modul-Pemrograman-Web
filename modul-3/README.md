@@ -1379,7 +1379,90 @@ lorem
 
 ### Aggregate function
 
-lorem
+#### Aggregate Dasar 
+Aggregate digunakan untuk melakukan perhitungan matematis terhadap kolom tertentu di tabel database, mirip seperti COUNT, AVG, SUM, MIN, dan MAX pada SQL.
+Prisma menyediakan fungsi bawaan seperti:
+| Fungsi   | Deskripsi                  |
+| -------- | -------------------------- |
+| `_count` | Menghitung jumlah record   |
+| `_avg`   | Menghitung nilai rata-rata |
+| `_sum`   | Menjumlahkan nilai         |
+| `_min`   | Nilai minimum              |
+| `_max`   | Nilai maksimum             |
+
+Contoh 1 : Menghitung Total User
+```
+const totalUsers = await prisma.user.count();
+console.log(`Total User: ${totalUsers}`);
+```
+
+Contoh 2 : Aggregate Lengkap
+```
+const result = await prisma.post.aggregate({
+  _count: { id: true },
+  _avg: { authorId: true },
+  _min: { createdAt: true },
+  _max: { createdAt: true },
+});
+console.log(result);
+```
+Menghasilkan object berisi jumlah post, rata-rata authorId, waktu paling awal, dan paling baru. Contoh :
+```
+{
+  "_count": { "id": 10 },
+  "_avg": { "authorId": 2.5 },
+  "_min": { "createdAt": "2025-10-10T00:00:00Z" },
+  "_max": { "createdAt": "2025-10-15T00:00:00Z" }
+}
+```
+
+##### Group By
+groupBy digunakan untuk mengelompokkan data berdasarkan kolom tertentu dan melakukan agregasi di tiap grup.
+Contoh : Menghitung Jumlah Post per Author
+````
+const groupedPosts = await prisma.post.groupBy({
+  by: ['authorId'],
+  _count: { id: true },
+  orderBy: {
+    _count: { id: 'desc' },
+  },
+});
+
+console.log(groupedPosts);
+````
+Menghasilkan daftar jumlah postingan dari tiap penulis (authorId). Contoh Output:
+```
+[
+  { "authorId": 1, "_count": { "id": 5 } },
+  { "authorId": 2, "_count": { "id": 3 } }
+]
+```
+
+#### Aggregate dengan Kondisi (Filter)
+Anda juga bisa menggabungkan aggregate dengan where untuk perhitungan bersyarat.
+
+Contoh : Menghitung Jumlah Post yang Sudah Dipublish
+```
+const totalPublished = await prisma.post.count({
+  where: {
+    published: true,
+  },
+});
+console.log(`Jumlah post yang sudah dipublish: ${totalPublished}`);
+```
+
+Contoh : Mengambil Statistik Berdasarkan Tanggal
+```
+const dailyStats = await prisma.post.groupBy({
+  by: ['createdAt'],
+  _count: { id: true },
+  orderBy: {
+    createdAt: 'asc',
+  },
+});
+```
+Menampilkan jumlah post per tanggal pembuatan.
+
 
 ### Batch Queries & Transaction
 
