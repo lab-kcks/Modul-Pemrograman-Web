@@ -16,15 +16,263 @@ lorem
 
 ## Component and Props
 
-lorem
+**Component** adalah building block utama dalam React. Component memungkinkan kita memecah UI menjadi bagian-bagian independen dan reusable.
+
+**Props** (properties) adalah cara untuk passing data dari parent component ke child component. Props bersifat read-only dan tidak boleh dimodifikasi oleh child component.
+
+### Contoh
+
+1. Basic Functional Component
+
+```jsx
+function Welcome() {
+	return <h1>Selamat Datang di React!</h1>;
+}
+```
+
+2. Component dengan Props
+
+```jsx
+// Ini adalah komponen yang menerima props
+function UserCard(
+	props // ini adalah parameter props
+) {
+	return (
+		<div className="card">
+			<h2>{props.name}</h2>
+			<p>Umur: {props.age}</p>
+			<p>Email: {props.email}</p>
+		</div>
+	);
+}
+
+// Ini adalah komponen utama yang menggunakan Component UserCard
+function App() {
+	return (
+		<div>
+			{/* name, age, email adalah props */}
+			<UserCard name="Budi" age={25} email="budi@email.com" />
+			<UserCard name="Ani" age={23} email="ani@email.com" />
+		</div>
+	);
+}
+```
+
+3. Destructuring Props
+
+```jsx
+// Props dipisah menjadi masing-masing variabel
+function ProductCard({ name, price, stock }) {
+	return (
+		<div className="product">
+			<h3>{name}</h3>
+			<p>Harga: Rp {price.toLocaleString()}</p>
+			<p>Stok: {stock}</p>
+		</div>
+	);
+}
+```
+
+4. Props dengan Default Values
+
+```jsx
+// Text dan Color diisi dengan default value
+function Button({ text = "Click Me", color = "blue" }) {
+	return <button style={{ backgroundColor: color }}>{text}</button>;
+}
+```
+
+5. Props dengan Children
+
+```jsx
+function Container({ children }) {
+	return <div className="container">{children}</div>;
+}
+
+function App() {
+	return (
+		<Container>
+			<h1>Ini adalah judul</h1>
+			<p>Ini adalah paragraf di dalam container</p>
+		</Container>
+	);
+}
+```
 
 ## Event Handling
 
-lorem
+Aplikasi web perlu merespons interaksi pengguna, seperti klik, ketikan keyboard, atau submit form. Di React, ini disebut **Event Handling**.
+
+1. Event onClick
+
+`onClick` digunakan untuk handling event click oleh user. Umumnya digunakan pada sebuah button.
+
+```jsx
+function ButtonClick() {
+	function handleClick() {
+		alert("Button diklik!");
+	}
+
+	return <button onClick={handleClick}>Klik Saya</button>;
+}
+```
+
+2. Event onChange
+
+`onChange` umumnya digunakan pada element input untuk mendeteksi perubahan isi input oleh user.
+
+```jsx
+function FormInput() {
+	const [name, setName] = React.useState("");
+
+	function handleChange(event) {
+		setName(event.target.value);
+	}
+
+	return (
+		<div>
+			<input
+				type="text"
+				value={name}
+				onChange={handleChange}
+				placeholder="Masukkan nama"
+			/>
+			<p>Nama Anda: {name}</p>
+		</div>
+	);
+}
+```
+
+3. Event onSubmit
+
+`onSubmit` digunakan untuk handling event ketika user melakukan submit, umumnya pada sebuah form.
+
+```jsx
+function LoginForm() {
+	const [username, setUsername] = React.useState("");
+	const [password, setPassword] = React.useState("");
+
+	function handleSubmit(event) {
+		event.preventDefault();
+		console.log("Username:", username);
+		console.log("Password:", password);
+		alert(`Login dengan username: ${username}`);
+	}
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<div>
+				<input
+					type="text"
+					value={username}
+					onChange={(e) => setUsername(e.target.value)}
+					placeholder="Username"
+				/>
+			</div>
+			<div>
+				<input
+					type="password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					placeholder="Password"
+				/>
+			</div>
+			<button type="submit">Login</button>
+		</form>
+	);
+}
+```
+
+Masih banyak lagi jenis Event Handling yang dapat digunakan. Kalian dapat explore sendiri untuk jenis-jenis Event Handling yang lain sesuai kebutuhan kalian.
 
 ## Conditional Rendering
 
-lorem
+**Conditional Rendering** adalah teknik untuk menampilkan component atau element berdasarkan kondisi tertentu. React menyediakan beberapa cara untuk melakukan conditional rendering.
+
+1. If-Else Statement
+
+```jsx
+function Greeting({ isLoggedIn }) {
+	if (isLoggedIn) {
+		return <h1>Selamat datang kembali!</h1>;
+	} else {
+		return <h1>Silakan login terlebih dahulu.</h1>;
+	}
+}
+```
+
+2. Ternary Operator
+
+```jsx
+function LoginButton({ isLoggedIn }) {
+	return (
+		<div>{isLoggedIn ? <button>Logout</button> : <button>Login</button>}</div>
+	);
+}
+```
+
+3. Logical && Operator
+
+```jsx
+function Notification({ hasNewMessage, messageCount }) {
+	return (
+		<div>
+			<h1>Dashboard</h1>
+			{hasNewMessage && <p>Anda memiliki {messageCount} pesan baru!</p>}
+		</div>
+	);
+}
+```
+
+4. Conditional Class/style
+
+```jsx
+function StatusBadge({ isActive }) {
+	return (
+		<span
+			className={isActive ? "badge-active" : "badge-inactive"}
+			style={{
+				backgroundColor: isActive ? "green" : "red",
+				color: "white",
+				padding: "5px 10px",
+				borderRadius: "5px",
+			}}
+		>
+			{isActive ? "Aktif" : "Nonaktif"}
+		</span>
+	);
+}
+```
+
+5. Complex Conditional Rendering
+
+```jsx
+function Dashboard({ user }) {
+	if (!user) {
+		return <p>Loading...</p>;
+	}
+
+	if (user.isBlocked) {
+		return <p>Akun Anda telah diblokir.</p>;
+	}
+
+	if (!user.isVerified) {
+		return (
+			<div>
+				<p>Email Anda belum diverifikasi.</p>
+				<button>Kirim Ulang Email Verifikasi</button>
+			</div>
+		);
+	}
+
+	return (
+		<div className="dashboard">
+			<h1>Selamat datang, {user.name}!</h1>
+			<p>Email: {user.email}</p>
+		</div>
+	);
+}
+```
 
 ## Render List and Key List
 
