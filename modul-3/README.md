@@ -571,7 +571,7 @@ Dengan Prisma, kita tidak perlu menulis query SQL secara manual, cukup menggunak
 
 ### Mengapa Menggunakan Prisma ORM?
 
-Perhatikan perbandingan kdoe berikut:
+Perhatikan perbandingan kode berikut:
 
 ```typescript
 const result = await client.query("SELECT * FROM users WHERE id = $1", [id]);
@@ -584,6 +584,12 @@ const user = await prisma.user.findUnique({
 ```
 
 Tidak hanya Prisma mampu memudahkan kita dalam mengambil record dari database, namun penggunaan ORM juga dapat meningkatkan keamanan kode kita agar terhindar dari beberapa kerentanan seperti SQL Injection
+
+### Komponen Utama Prisma
+Ekosistem Prisma terdiri dari tiga komponen utama:
+1. **Prisma Schema** : *schema.prisma* Tempat mendefinisikan model data aplikasi. single source of truth untuk skema database.
+2. **Prisma Client** : Query builder yang di-generate secara otomatis dan type-safe berdasarkan skema. Inilah yang akan digunakan untuk membaca dan menulis data.
+3. **Prisma Migrate** : Alat migrasi database yang secara otomatis membuat file migrasi SQL berdasarkan perubahan pada Prisma Schema, dan menjaga skema database tetap sinkron dengan model data.
 
 ## Inisiasi Prisma pada Express
 
@@ -686,6 +692,10 @@ Perintah ini akan:
 
 ```bash
 npx prisma generate
+```
+Prisma menyediakan alat visual bernama Prisma Studio yang dapat digunakan untuk melihat dan mengedit data di database web interface. Untuk menjalankannya, gunakan:
+```bash
+npx prisma studio
 ```
 
 ### 7. Setup Prisma Client di Project
@@ -1365,11 +1375,232 @@ process.on('SIGINT', async () => {
 ```
 ### Filtering & Pagination
 
-lorem
+#### Filtering 
+Filtering digunakan untuk menyaring data berdasarkan kondisi tertentu sebelum dikembalikan dari database. Prisma menyediakan parameter where yang sangat fleksibel, mirip seperti klausa WHERE pada SQL.
+
+Contoh saat ingin mengambil semua post yang sudah dipublish:
+```typescript
+const publishedPosts = await prisma.post.findMany({
+  where: {
+    published: true,
+  },
+});
+```
+
+Atau mengambil user dengan nama yang mengandung kata “budi”:
+```typescript
+const filteredUsers = await prisma.user.findMany({
+  where: {
+    name: {
+      contains: 'budi',
+      mode: 'insensitive', // agar tidak case-sensitive
+    },
+  },
+});
+```
+mode: 'insensitive' membuat pencarian tidak membedakan huruf besar dan kecil (case-insensitive).
+Misalnya pencarian “budi” akan cocok dengan “Budi”, “BUdi”, atau “bUDI”.
+
+Contoh Filtering dengan Beberapa Kondisi (AND, OR, NOT): 
+```typescript
+const complexFilter = await prisma.post.findMany({
+  where: {
+    AND: [
+      { published: true },
+      { title: { contains: 'tutorial' } },
+    ],
+  },
+});
+```
+
+```typescript
+const posts = await prisma.post.findMany({
+  where: {
+    OR: [
+      { title: { contains: 'AI' } },
+      { title: { contains: 'Machine Learning' } },
+    ],
+    NOT: { authorId: 1 },
+  },
+});
+```
+
+Bisa juga menerapkan filtering berdasarkan relasi, contohnya menampilkan semua post dari user dengan email tertentu:
+```typescript
+const postsByEmail = await prisma.post.findMany({
+  where: {
+    author: {
+      email: 'budi@santoso.id',
+    },
+  },
+});
+```
+
+#### Pagination 
+Pagination digunakan untuk mengatur jumlah data yang ditampilkan per halaman. Prisma menyediakan dua properti utama:
+- skip: untuk melewati sejumlah data
+- take: untuk menentukan berapa banyak data yang diambil
+
+Contoh jika ingin mengambil 10 post per halaman:
+```typescript
+const page = Number(req.query.page) || 1; // halaman saat ini
+const limit = Number(req.query.limit) || 10; // jumlah per halaman
+
+const posts = await prisma.post.findMany({
+  skip: (page - 1) * limit,
+  take: limit,
+  orderBy: {
+    createdAt: 'desc',
+  },
+});
+```
+
+Lalu mengembalikan hasil dan info pagination ke client:
+```typescript
+const totalPosts = await prisma.post.count();
+
+res.json({
+  message: 'Berhasil mengambil data posts dengan pagination',
+  currentPage: page,
+  totalPages: Math.ceil(totalPosts / limit),
+  totalPosts,
+  data: posts,
+});
+```
+
+#### Filtering + Pagination 
+Filtering dan pagination bisa dikombinasikan agar lebih dinamis. Misalnya client ingin mencari post yang mengandung kata “eco” pada judulnya, dengan pagination:
+```typescript
+const { page = 1, limit = 5, search = '' } = req.query;
+
+const posts = await prisma.post.findMany({
+  where: {
+    title: {
+      contains: search as string,
+      mode: 'insensitive',
+    },
+  },
+  skip: (Number(page) - 1) * Number(limit),
+  take: Number(limit),
+  orderBy: {
+    createdAt: 'desc',
+  },
+  include: {
+    author: {
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    },
+  },
+});
+
+const total = await prisma.post.count({
+  where: {
+    title: {
+      contains: search as string,
+      mode: 'insensitive',
+    },
+  },
+});
+
+res.json({
+  message: 'Berhasil mengambil data posts dengan filter & pagination',
+  currentPage: Number(page),
+  totalPages: Math.ceil(total / Number(limit)),
+  totalPosts: total,
+  data: posts,
+});
+```
+Contoh ini sangat cocok diletakkan di controller getAllPosts, menggantikan query statis agar lebih fleksibel untuk pencarian dan pagination dari frontend.
 
 ### Aggregate function
 
-lorem
+#### Aggregate Dasar 
+Aggregate digunakan untuk melakukan perhitungan matematis terhadap kolom tertentu di tabel database, mirip seperti COUNT, AVG, SUM, MIN, dan MAX pada SQL.
+Prisma menyediakan fungsi bawaan seperti:
+| Fungsi   | Deskripsi                  |
+| -------- | -------------------------- |
+| `_count` | Menghitung jumlah record   |
+| `_avg`   | Menghitung nilai rata-rata |
+| `_sum`   | Menjumlahkan nilai         |
+| `_min`   | Nilai minimum              |
+| `_max`   | Nilai maksimum             |
+
+Contoh menghitung total user
+```typescript
+const totalUsers = await prisma.user.count();
+console.log(`Total User: ${totalUsers}`);
+```
+
+Contoh aggregate lengkap
+```typescript
+const result = await prisma.post.aggregate({
+  _count: { id: true },
+  _avg: { authorId: true },
+  _min: { createdAt: true },
+  _max: { createdAt: true },
+});
+console.log(result);
+```
+Menghasilkan object berisi jumlah post, rata-rata authorId, waktu paling awal, dan paling baru. Contoh :
+```
+{
+  "_count": { "id": 10 },
+  "_avg": { "authorId": 2.5 },
+  "_min": { "createdAt": "2025-10-10T00:00:00Z" },
+  "_max": { "createdAt": "2025-10-15T00:00:00Z" }
+}
+```
+
+##### Group By
+groupBy digunakan untuk mengelompokkan data berdasarkan kolom tertentu dan melakukan agregasi di tiap grup.
+Contoh menghitung jumlah post per author
+```typescript
+const groupedPosts = await prisma.post.groupBy({
+  by: ['authorId'],
+  _count: { id: true },
+  orderBy: {
+    _count: { id: 'desc' },
+  },
+});
+
+console.log(groupedPosts);
+````
+Menghasilkan daftar jumlah postingan dari tiap penulis (authorId). Contoh Output:
+```
+[
+  { "authorId": 1, "_count": { "id": 5 } },
+  { "authorId": 2, "_count": { "id": 3 } }
+]
+```
+
+#### Aggregate dengan Kondisi (Filter)
+Anda juga bisa menggabungkan aggregate dengan where untuk perhitungan bersyarat.
+
+Contoh menghitung jumlah post yang telah dipublish
+```typescript
+const totalPublished = await prisma.post.count({
+  where: {
+    published: true,
+  },
+});
+console.log(`Jumlah post yang sudah dipublish: ${totalPublished}`);
+```
+
+Contoh mengambil statistik berdasarkan tanggal
+```typescript
+const dailyStats = await prisma.post.groupBy({
+  by: ['createdAt'],
+  _count: { id: true },
+  orderBy: {
+    createdAt: 'asc',
+  },
+});
+```
+Menampilkan jumlah post per tanggal pembuatan.
+
 
 ### Batch Queries & Transaction
 
