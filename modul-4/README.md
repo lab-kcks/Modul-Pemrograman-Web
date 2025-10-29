@@ -581,12 +581,206 @@ export default function App() {
 Dalam kode tersebut, `useEffect()` akan berjalan setiap kali komponen di-_render_ ulang dan setiap kali menekan tombol.
 
 ## Fetch API
+Fetch API adalah fitur bawaan JavaScript untuk mengambil (fetch) data dari sumber eksternal, seperti REST API.
 
-lorem
+Biasanya digunakan untuk:
+- Mengambil data dari server (GET)
+- Mengirim data ke server (POST, PUT, DELETE)
+- Menangani hasil (response) dan error
+
+Di React, fetch API sering digunakan di dalam hook useEffect untuk mengambil data saat komponen pertama kali dirender.
+
+```jsx
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+export default function CommentList() {
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await fetch("https://dummyjson.com/comments");
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await res.json();
+        setComments(data.comments);
+      } catch (error) {
+        console.error("Gagal ambil data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchComments();
+  }, []);
+
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-gray-600">Loading comments...</p>
+      </div>
+    );
+
+  return (
+    <div className="max-w-3xl mx-auto space-y-5">
+      <h1 className="text-2xl font-bold mb-6 text-center">
+        🗨️ Daftar Komentar
+      </h1>
+      {comments.map((c) => (
+        <div key={c.id}>
+          <div>
+            <h2>{c.user.fullName}</h2>
+            <span>@{c.user.username}</span>
+          </div>
+          <p>{c.body}</p>
+          <p>❤️ {c.likes} likes</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+Saat mengambil data dari API, kita harus siap menghadapi kemungkinan error, misalnya koneksi gagal, server down, atau URL salah.
+Untuk menangani error, kita bisa menggunakan blok try-catch-finally:
+```jsx
+try {
+  // proses utama
+} catch (error) {
+  // tangani error
+} finally {
+  // selalu dijalankan
+}
+```
+Penjelasan:
+- try berisi proses utama yang berpotensi error
+- catch menangani error yang terjadi agar aplikasi tidak crash
+- finally dijalankan selalu, misalnya untuk menonaktifkan loading spinner selesai.
+Contoh penggunaannya sudah diterapkan di kode fetchComments() di atas. Dengan cara ini, user tetap mendapat feedback (misalnya “Loading...” atau pesan error), bukan halaman blank.
+
+Axios adalah library pihak ketiga untuk melakukan HTTP request. Keunggulannya dibanding fetch():
+- Otomatis mengubah response menjadi JSON.
+- Error handling lebih mudah.
+- Memiliki interceptor (misalnya menambahkan token ke setiap request)
+- Mendukung global configuration
+```jsx
+useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await axios.get("https://dummyjson.com/comments");
+        setComments(res.data.comments);
+      } catch (err) {
+        console.error(err);
+        setError("Gagal memuat data komentar");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchComments();
+  }, []);
+```
 
 ## Route (React Router)
+React Router digunakan untuk membuat navigasi antar halaman tanpa reload.
+Dengan ini, kita bisa membuat :
+- Halaman daftar komentar
+- Halaman detail komentar berdasarkan ID
+- Navigasi antar halaman dengan link
 
-lorem
+Implementasi dasar React Router:
+1. Pasang React Router: `npm install react-router-dom`
+2. Bungkus aplikasi dengan <BrowserRouter> di main.tsx
+    ```jsx
+    import { StrictMode } from 'react'
+    import { createRoot } from 'react-dom/client'
+    import { BrowserRouter } from 'react-router-dom'
+    import './index.css'
+    import App from './App.tsx'
+
+    createRoot(document.getElementById('root')!).render(
+      <StrictMode>
+        <BrowserRouter>
+        <App />
+        </BrowserRouter>
+      </StrictMode>
+    )
+    ```
+3. Definisikan rute di App.tsx menggunakan <Routes> dan <Route>
+    ```jsx
+    import { Routes, Route } from "react-router-dom";
+    import CommentList from "./components/CommentList";
+    import CommentDetail from "./components/CommentDetail";
+
+    export default function App() {
+      return (
+        <div className="bg-gray-100 min-h-screen p-6">
+          <Routes>
+            <Route path="/" element={<CommentList />} />
+            <Route path="/comments/:id" element={<CommentDetail />} />
+          </Routes>
+        </div>
+      );
+    }
+    ```
+4. Gunakan useParams() untuk mengambil parameter rute di komponen detail dan ambil data spesifik berdasarkan ID.
+    ```jsx
+    import { useEffect, useState } from "react";
+    import { useParams, Link } from "react-router-dom";
+
+    export default function CommentDetail() {
+      const { id } = useParams<{ id: string }>();
+      const [comment, setComment] = useState<Comment | null>(null);
+      const [loading, setLoading] = useState(true);
+
+      useEffect(() => {
+        const fetchComment = async () => {
+          try {
+            const res = await fetch(`https://dummyjson.com/comments/${id}`);
+            const data = await res.json();
+            setComment(data);
+          } catch (error) {
+            console.error("Gagal ambil detail:", error);
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        fetchComment();
+      }, [id]);
+
+      if (loading)
+        return (
+          <div className="flex justify-center items-center h-screen">
+            <p className="text-gray-600">Loading detail...</p>
+          </div>
+        );
+
+      if (!comment)
+        return (
+          <div className="flex justify-center items-center h-screen">
+            <p className="text-red-500">Komentar tidak ditemukan.</p>
+          </div>
+        );
+
+      return (
+        <div>
+          <Link to="/">
+            ← Kembali
+          </Link>
+          <h2>{comment.user.fullName}</h2>
+          <p>@{comment.user.username}</p>
+          <p>{comment.body}</p>
+          <div>❤️ {comment.likes} likes | Post ID: {comment.postId}</div>
+        </div>
+      );
+    }
+    ``` 
+Dengan React Router, kita bisa membuat aplikasi SPA (Single Page Application) yang responsif dan user-friendly.
+
 
 # Tailwind CSS
 
