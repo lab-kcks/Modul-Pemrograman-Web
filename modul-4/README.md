@@ -276,11 +276,207 @@ function Dashboard({ user }) {
 
 ## Render List and Key List
 
-lorem
+Saat menggunakan React, kita seringkali perlu menampilkan sekumpulan data yang berbentuk _array_. Untuk itu, kita dapat menggunakan metode _array_ dalam Javascript untuk dapat menampilkan data tersebut, yaitu `map()`.
+
+`map()` merupakan salah satu _array_ method dalam Javascript yang berfungsi untuk mengiterasi setiap elemen dalam _array_ sekaligus memanipulasinya. Fungsi ini akan membuat _array_ baru dengan cara **"mengunjungi"** setiap item di _array_ asli satu per satu, lalu mengubahnya (transformasi) sesuai instruksi yang kita berikan. Berikut adalah contoh implementasinya:
+
+```tsx
+const datas = [
+    {
+        "id": "dbbad590-41f7-4dd6-9d6a-025aa5cd8145",
+        "username": "Joanie.Franecki",
+        "email": "Raphael_Zulauf40@yahoo.com"
+    },
+    {
+        "id": "8d578b9f-c1c6-45a6-bbf8-1c49ecf43136",
+        "username": "Kale.Lubowitz93",
+        "email": "Rhoda5@gmail.com"
+    }
+]
+
+export default function App() {
+	return (
+		<>
+			{datas.map((data) => (
+				<div key={data.id}>
+					<p>{data.username}</p>
+					<p>{data.email}</p>
+				</div>
+			))}
+		</>
+	)
+}
+```
+
+Contoh implementasi yang lain:
+
+```tsx
+const datas = [
+    {
+        "id": "80884465-b0f9-4d64-ab2d-e9a8ac0bd78f",
+        "username": "Laurence_Kohler",
+        "email": "June.Johnston29@gmail.com"
+    },
+    {
+        "id": "8a8656d5-d09d-4ef7-9c1f-0d42180b6970",
+        "username": "Frederic_Krajcik36",
+        "email": "Kristopher4@gmail.com"
+    }
+]
+
+export default function App() {
+	return (
+		<>
+			{datas.map((data) => {
+				const isAvailable = data.email === 'Kristopher4@gmail.com'
+
+				return (
+					<div key={data.id}>
+						<p>{data.username}</p>
+						<p>{data.email}</p>
+						<p>Available: {isAvailable}</p>
+					</div>
+				)
+			})}
+		</>
+	)
+}
+```
+
+Dalam kode di atas, `datas.map()` akan melakukan iterasi (perulangan) pada setiap objek di dalam _array_ `datas`. Untuk setiap objek `data`, fungsi ini akan **mengembalikan (return) elemen** `<div>` baru yang berisi `<p>` untuk `username` dan `email`.
+
+#### Apa fungsi `key` dalam elemen `div`?
+
+`key` berfungsi sebagai _identifier_ atau tanda pengenal untuk setiap elemen `<div>`. Dalam kode diatas, nilai `key` yang digunakan (`data.id`) harus bernilai unik untuk setiap item yang ada dalam array, agar React dapat dengan mudah mengidentifikasinya.
 
 ## Hooks
 
-lorem
+### `useState()`
+
+> _State_ merupakan data internal pada sebuah komponen yang dapat berubah seiring dengan interaksi yang dilakukan oleh pengguna.
+
+`useState()` merupakan _hooks_ bawaan React yang berfungsi untuk membuat dan mengelola state dalam sebuah komponen. Fungsi ini secara _default_ mengembalikan dua elemen dalam array, yaitu `state` dan `setState`.
+
+- `state` merupakan nilai data saat ini
+- `setState` merupakan fungsi untuk mengubah/memperbarui nilai `state`
+
+Berikut adalah sintaks dasar dari penggunaan `useState()`:
+
+```tsx
+const [state, setState] = useState(initialValue);
+```
+
+Berikut adalah contoh dari penggunaan `useState()`:
+
+```tsx
+import { useState } from "react";
+
+export default function App() {
+	const [count, setCount] = useState(0);
+
+	return (
+		<div>
+			<p>You clicked {count} times</p>
+			<button onClick={() => setCount(count + 1)}>
+				Click me
+			</button>
+		</div>
+	)
+}
+```
+
+Dalam kode tersebut, _state_ `count` diinisiasi dengan nilai `0`, dan saat _user_ menekan tombol, nilai dari `count` akan bertambah 1.
+
+> Setelah nilai state berubah dan halaman di-_reload_, nilai `state` akan kembali ke nilai awalnya.
+
+### `useEffect()`
+
+`useEffect()` digunakan untuk menjalankan _side effect_. _Hooks_ ini akan berjalan ketika:
+
+- Komponen pertama kali di-_render_ (_mount_)
+- Komponen diperbarui (_update_)
+- Komponen dihapus (_unmount_)
+
+Beberapa contoh _case_ yang dapat dikelola dengan `useEffect()` antara lain:
+
+- Mengambil data dari API
+- Mengatur timer atau interval
+- Memperbarui elemen di halaman
+
+Berikut adalah sintaks dasar dari penggunaan `useEffect()`:
+
+```tsx
+useEffect(() => {
+  // kode yang dijalankan
+}, [dependencies]);
+```
+
+- Fungsi pertama (_callback_) berisi kode yang akan dijalankan
+- Array `dependencies` berisi `state` atau `variabel` yang digunakan untuk menentukan kapan `useEffect()` dijalankan
+
+Berikut adalah contoh implementasi `useEffect()`
+
+#### Tanpa Dependencies
+
+```tsx
+import { useState, useEffect } from "react";
+
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Component rerender!");
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click Me</button>
+    </div>
+  );
+}
+```
+
+Dalam kode tersebut, `useEffect()` akan berjalan setiap kali komponen di-_render_ ulang. Akan tetapi, setiap kali menekan tombol, `useEffect()` tidak akan dijalankan ulang.
+
+#### Dependencies Array Kosong
+
+Penggunaan array kosong sebagai _dependencies_ di `useEffect()` akan membuat `useEffect()` hanya dijalankan sekali, tepatnya pada saat komponen pertama kali muncul (_mount_). Contoh _case_ penggunaannya adalah untuk mengambil data dari API sekali saja saat aplikasi dijalankan.
+
+```tsx
+import { useEffect } from "react";
+
+export default function App() {
+  useEffect(() => {
+    console.log("Component rendered!");
+  }, []);
+
+  return <h1>Hello, React!</h1>;
+}
+``` 
+
+#### Dengan Dependencies
+
+```tsx
+import { useState, useEffect } from "react";
+
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log(`Count set to: ${count}`);
+  }, [count]);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click Me</button>
+    </div>
+  );
+}
+```
+
+Dalam kode tersebut, `useEffect()` akan berjalan setiap kali komponen di-_render_ ulang dan setiap kali menekan tombol.
 
 ## Fetch API
 
