@@ -732,7 +732,7 @@ Implementasi dasar React Router:
     )
     ```
 
-3.  Definisikan rute di App.tsx menggunakan <Routes> dan <Route>
+3.  Definisikan rute di App.tsx menggunakan Routes dan Route
 
     ```jsx
     import { Routes, Route } from "react-router-dom";
