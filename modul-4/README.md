@@ -693,6 +693,14 @@ useEffect(() => {
 	fetchComments();
 }, []);
 ```
+Untuk menginstall axios bisa dengan menjalankan
+```
+npm install axios
+```
+Lalu import axios pada file yang dipakai
+```
+import axios from "axios";
+```
 
 ## Route (React Router)
 
